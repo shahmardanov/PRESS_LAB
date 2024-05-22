@@ -1,5 +1,6 @@
 package com.example.press_lab.entity;
 
+import com.example.press_lab.enums.NewsStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,10 @@ public class News {
     private String content;
     private String imageUrl;
     private Long viewCount;
+
+    @Enumerated(EnumType.STRING)
+    private NewsStatus newsStatus;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Long fkCategoryId;
