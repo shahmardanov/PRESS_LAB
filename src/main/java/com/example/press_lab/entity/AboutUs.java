@@ -1,23 +1,24 @@
 package com.example.press_lab.entity;
 
-import com.example.press_lab.enums.CategoryStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "categories")
+@Table(name = "aboutUs")
 @Entity
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class AboutUs {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private CategoryStatus categoryStatus;
+    private String title;
+    private String content;
+    private String imageUrl;
 
 }

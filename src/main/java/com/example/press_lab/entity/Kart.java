@@ -3,18 +3,17 @@ package com.example.press_lab.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
-@Table(name = "advertisements")
+@Table(name = "karts")
 @Entity
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Advertisement {
+public class Kart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +21,13 @@ public class Advertisement {
     private Long id;
 
     private String title;
-
-    @Lob
     private String content;
     private String imageUrl;
-    private String sourceUrl;
-    private Long viewCount;
+
+    private Long fkNewsId;
+    private String description;
 
     @CreatedDate
     private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
 }
