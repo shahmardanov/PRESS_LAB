@@ -3,11 +3,19 @@ package com.example.press_lab.entity;
 import com.example.press_lab.enums.CategoryStatus;
 import com.example.press_lab.enums.NewsStatus;
 import com.example.press_lab.enums.SubCategoryStatus;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b7efc9 (Specification)
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9b7efc9 (Specification)
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

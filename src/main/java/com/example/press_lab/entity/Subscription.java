@@ -1,7 +1,13 @@
 package com.example.press_lab.entity;
 
+<<<<<<< HEAD
 import jakarta.persistence.*;
 import lombok.*;
+=======
+
+import lombok.*;
+import jakarta.persistence.*;
+>>>>>>> 9b7efc9 (Specification)
 
 @Table(name = "subscriptions")
 @Entity
