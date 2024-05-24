@@ -7,13 +7,14 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@AllArgsConstructor
 public class NewsSpecification implements Specification<News> {
 
     private List<SearchCriteria> list;
@@ -38,6 +39,9 @@ public class NewsSpecification implements Specification<News> {
             } else if (criteria.getOperation().equals(SearchOperation.LESS_THAN)) {
                 predicates.add(builder.lessThan(
                         root.get(criteria.getKey()), criteria.getValue().toString()));
+            } else if (criteria.getOperation().equals(SearchOperation.CONTAINS)) {
+                predicates.add(builder.like(
+                        root.get(criteria.getKey()), "%" + criteria.getValue() + "%"));
             } else if (criteria.getOperation().equals(SearchOperation.GREATER_THAN_EQUAL)) {
                 predicates.add(builder.greaterThanOrEqualTo(
                         root.get(criteria.getKey()), criteria.getValue().toString()));

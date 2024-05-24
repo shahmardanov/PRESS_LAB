@@ -6,22 +6,14 @@ spring:
     name: Press-lab
 
   datasource:
-<<<<<<< HEAD
-    url: jdbc:postgresql://localhost:5432/presslab?createDatabaseIfNotExist=true
-=======
     url: jdbc:postgresql://localhost:5432/presslab
->>>>>>> 9b7efc9 (Specification)
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-<<<<<<< HEAD
-      ddl-auto: create
-=======
       ddl-auto: update
->>>>>>> 9b7efc9 (Specification)
     show-sql: true
 
   liquibase:
