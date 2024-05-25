@@ -5,6 +5,7 @@ import com.example.press_lab.enums.NewsStatus;
 import com.example.press_lab.enums.SubCategoryStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -26,6 +27,8 @@ public class News implements Serializable {
     private Long id;
 
     private String title;
+    //255 limit oldugu ucun deyisdim
+    @Column(columnDefinition = "TEXT")
     private String content;
     private String imageUrl;
     private Long viewCount;
@@ -40,7 +43,7 @@ public class News implements Serializable {
     @Enumerated(EnumType.STRING)
     private SubCategoryStatus subCategoryStatus;
 
-    @CreatedDate
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @LastModifiedDate
