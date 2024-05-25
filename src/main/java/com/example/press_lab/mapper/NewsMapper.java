@@ -11,6 +11,6 @@ public interface NewsMapper {
 
     NewsReadResponse toReadResponse(News news);
     NewsCardResponse toCardResponse(News news);
-
     News toCreateEntity(NewsCreateRequest newsCreateRequest);
+
 }
