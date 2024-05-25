@@ -51,4 +51,18 @@ public class NewsReadService {
                 .toList();
     }
 
+    public NewsReadResponse getNewsById(int id) {
+
+        return newsRepository.findById((long) id)
+                .map(newsEntity ->{
+                    if (newsEntity.getViewCount() == null) {
+                        newsEntity.setViewCount(0L);
+                    }
+                    newsEntity.setViewCount(newsEntity.getViewCount() + 1);
+                    newsRepository.save(newsEntity);
+                    return newsMapper.mapReadToResponse(newsEntity);
+                })
+                .orElseThrow(() -> new RuntimeException("News not found with id " + id));
+    }
+
 }

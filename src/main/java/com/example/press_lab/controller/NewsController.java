@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,6 +50,12 @@ public class NewsController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<NewsReadResponse>> getActiveStatus(){
         return ResponseEntity.ok(readService.getActiveStatus());
+    }
+
+    @GetMapping("/readById/{id}")
+    public ResponseEntity<NewsReadResponse> getNewsById(@PathVariable int id) {
+        Optional<NewsReadResponse> news = Optional.ofNullable(readService.getNewsById(id));
+        return news.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(404).body(null));
     }
 
     @PostMapping("/update")
