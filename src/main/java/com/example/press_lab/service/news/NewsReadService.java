@@ -1,6 +1,5 @@
 package com.example.press_lab.service.news;
 
-import com.example.press_lab.exception.kart.KartFkNewsIdNotFoundException;
 import com.example.press_lab.exception.news.NewsContentNotFoundException;
 import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;

@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Service
 @NoArgsConstructor
@@ -17,7 +15,5 @@ public class NewsReadRequest {
     private Long id;
     private String content;
     private NewsStatus status;
-    private int page;
-    private int size;
 
 }

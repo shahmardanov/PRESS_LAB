@@ -23,7 +23,7 @@ public class NewsController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<NewsCreateResponse> create(@Valid @RequestBody NewsCreateRequest createRequest){
+    public ResponseEntity<NewsCreateResponse> create(@RequestBody @Valid NewsCreateRequest createRequest){
         return ResponseEntity.ok(createService.create(createRequest));
     }
 

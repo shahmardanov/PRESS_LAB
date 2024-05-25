@@ -1,20 +1,18 @@
-package com.example.press_lab.request.news;
+package com.example.press_lab.wrapper;
 
 import com.example.press_lab.enums.CategoryStatus;
 import com.example.press_lab.enums.NewsStatus;
 import com.example.press_lab.enums.SubCategoryStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+
 @Getter
-@Service
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewsUpdateRequest {
+public class NewsWrapper {
 
     private Long id;
     private String title;
@@ -27,5 +25,11 @@ public class NewsUpdateRequest {
     private SubCategoryStatus subCategoryStatus;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+
+    public NewsWrapper(Long id, String content){
+        this.id = id;
+        this.content = content;
+    }
 
 }
