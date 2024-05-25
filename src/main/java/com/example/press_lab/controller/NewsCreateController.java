@@ -34,6 +34,4 @@ public class NewsCreateController {
         return newsCreateService.createNews(request);
     }
 
-
-
 }
