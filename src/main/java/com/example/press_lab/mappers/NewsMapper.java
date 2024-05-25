@@ -8,6 +8,9 @@ import com.example.press_lab.response.news.NewsUpdateResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+import java.util.Optional;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface NewsMapper {
 
@@ -15,6 +18,9 @@ public interface NewsMapper {
 
     NewsCreateResponse mapCreateToResponse(News news);
     NewsReadResponse mapReadToResponse(News news);
+//    NewsReadResponse mapOptionalReadToResponse(Optional<News> news);
     NewsUpdateResponse mapUpdateToResponse(News news);
+
+    List<NewsReadResponse> mapListEntityToListResponse(List<News> newsList);
 
 }

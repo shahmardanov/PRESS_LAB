@@ -33,13 +33,13 @@ public class NewsController {
         return ResponseEntity.ok(readService.getAll());
     }
 
-    @PostMapping("/readContent")
+    @PostMapping("/readByContent")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<NewsReadResponse>> getContent(@Valid @RequestBody NewsReadRequest readRequest){
         return ResponseEntity.ok(readService.getContent(readRequest));
     }
 
-    @PostMapping("/readStatus")
+    @PostMapping("/readByStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<NewsReadResponse>> getStatus(@Valid @RequestBody NewsReadRequest readRequest){
         return ResponseEntity.ok(readService.getStatus(readRequest));
@@ -47,8 +47,8 @@ public class NewsController {
 
     @PostMapping("/readActiveStatus")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<NewsReadResponse>> getActiveStatus(@Valid @RequestBody NewsReadRequest readRequest){
-        return ResponseEntity.ok(readService.getActiveStatus(readRequest));
+    public ResponseEntity<List<NewsReadResponse>> getActiveStatus(){
+        return ResponseEntity.ok(readService.getActiveStatus());
     }
 
     @PostMapping("/update")

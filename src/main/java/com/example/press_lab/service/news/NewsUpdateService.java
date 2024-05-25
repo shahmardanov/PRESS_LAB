@@ -52,8 +52,8 @@ public class NewsUpdateService {
             news.setSubCategoryStatus(updateRequest.getSubCategoryStatus());
         }
 
-        News savedNews = newsRepository.save(news);
-        return newsMapper.mapUpdateToResponse(savedNews);
+        newsRepository.save(news);
+        return newsMapper.mapUpdateToResponse(news);
     }
 
 }

@@ -3,10 +3,10 @@ package com.example.press_lab.request.news;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.Setter;
 
 @Getter
-@Service
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewsDeleteRequest {

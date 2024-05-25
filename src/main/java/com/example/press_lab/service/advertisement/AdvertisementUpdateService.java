@@ -38,7 +38,7 @@ public class AdvertisementUpdateService {
         if(Objects.nonNull(updateRequest.getUpdatedAt())){
             advertisement.setUpdatedAt(updateRequest.getUpdatedAt());
         }
-        Advertisement savedAdvertisement = advertisementRepository.save(advertisement);
-        return advertisementMapper.mapUpdateToResponse(savedAdvertisement);
+        advertisementRepository.save(advertisement);
+        return advertisementMapper.mapUpdateToResponse(advertisement);
     }
 }

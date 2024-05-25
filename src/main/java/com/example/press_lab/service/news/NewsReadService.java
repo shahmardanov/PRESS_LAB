@@ -44,7 +44,7 @@ public class NewsReadService {
                 .toList();
     }
 
-    public List<NewsReadResponse> getActiveStatus(NewsReadRequest readRequest){
+    public List<NewsReadResponse> getActiveStatus(){
         return newsRepository.findByStatus(ACTIVE)
                 .stream()
                 .map(newsMapper::mapReadToResponse)

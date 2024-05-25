@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,14 +19,12 @@ public class NewsCreateService {
     private final NewsMapper newsMapper;
 
     public NewsCreateResponse create(NewsCreateRequest createRequest){
-        if(Objects.nonNull(newsRepository.findByContent(createRequest.getContent()))){
+        if(newsRepository.findByContent(createRequest.getContent()).isPresent()){
             throw new NewsConflictException();
         }
-        log.info("create giris");
+
         News news = newsMapper.mapRequestToEntity(createRequest);
-        log.info("news gordu");
-        News savedNews = newsRepository.save(news);
-        log.info("savedNews gordu");
-        return newsMapper.mapCreateToResponse(savedNews);
+        newsRepository.save(news);
+        return newsMapper.mapCreateToResponse(news);
     }
 }
