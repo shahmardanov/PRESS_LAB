@@ -1,0 +1,42 @@
+server:
+  port: 8585
+#
+#spring:
+#  application:
+#    name: Press-lab
+#
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/presslab?createDatabaseIfNotExist=true
+#    username: postgres
+#    password: root
+#    driver-class-name: org.postgresql.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+
+
+spring:
+  application:
+      name: Press-lab
+  datasource:
+    url: jdbc:mysql://localhost:3306/presslab
+    username: root
+    password: 1234
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jakarta:
+          persistence:
+            sharedCache:
+              mode: ENABLE_SELECTIVE
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: false
