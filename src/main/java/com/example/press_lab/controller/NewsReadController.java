@@ -35,4 +35,5 @@ public class NewsReadController {
             @RequestParam(value = "size", defaultValue = "10")int size){
         return newsReadService.getNewsPage(page,size);
     }
+
 }
