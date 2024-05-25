@@ -33,6 +33,9 @@ public class NewsUpdateService {
         if(Objects.nonNull(updateRequest.getViewCount())){
             news.setViewCount(updateRequest.getViewCount());
         }
+        if(Objects.nonNull(updateRequest.getDescription())){
+            news.setDescription(updateRequest.getDescription());
+        }
         if(Objects.nonNull(updateRequest.getStatus())){
             news.setStatus(updateRequest.getStatus());
         }

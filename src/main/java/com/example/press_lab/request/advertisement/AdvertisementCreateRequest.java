@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AdvertisementCreateRequest {
 
+    private Long id;
     private String title;
     private String content;
     private String imageUrl;

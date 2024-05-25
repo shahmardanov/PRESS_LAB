@@ -21,10 +21,11 @@ public class NewsCreateResponse {
     private String content;
     private String imageUrl;
     private Long viewCount;
+    private String description;
     private NewsStatus status;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private CategoryStatus categoryStatus;
     private SubCategoryStatus subCategoryStatus;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }
