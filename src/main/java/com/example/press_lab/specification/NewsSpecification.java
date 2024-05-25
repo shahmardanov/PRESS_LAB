@@ -19,6 +19,8 @@ public class NewsSpecification implements Specification<News> {
 
     private List<SearchCriteria> list;
 
+    // test
+
     public NewsSpecification() {
         this.list = new ArrayList<>();
     }
