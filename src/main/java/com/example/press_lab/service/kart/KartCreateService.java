@@ -10,8 +10,6 @@ import com.example.press_lab.response.kart.KartCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class KartCreateService {
@@ -19,12 +17,12 @@ public class KartCreateService {
     private final KartMapper kartMapper;
 
     public KartCreateResponse create(KartCreateRequest createRequest){
-        if(Objects.nonNull(kartRepository.findByContent(createRequest.getContent()))){
+        if(kartRepository.findByContent(createRequest.getContent()).isPresent()){
             throw new KartConflictException();
         }
         Kart kart = kartMapper.mapRequestToEntity(createRequest);
-        Kart savedKart = kartRepository.save(kart);
-        return kartMapper.mapCreateToResponse(savedKart);
+        kartRepository.save(kart);
+        return kartMapper.mapCreateToResponse(kart);
     }
 
 

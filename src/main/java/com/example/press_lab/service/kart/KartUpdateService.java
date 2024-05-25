@@ -39,7 +39,7 @@ public class KartUpdateService {
         if(Objects.nonNull(updateRequest.getCreatedAt())){
             kart.setCreatedAt(updateRequest.getCreatedAt());
         }
-        Kart savedKart = kartRepository.save(kart);
-        return kartMapper.mapUpdateToResponse(savedKart);
+        kartRepository.save(kart);
+        return kartMapper.mapUpdateToResponse(kart);
     }
 }

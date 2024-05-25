@@ -32,13 +32,13 @@ public class AdvertisementController {
         return ResponseEntity.ok(readService.getAll());
     }
 
-    @PostMapping("/readContent")
+    @PostMapping("/readByContent")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<AdvertisementReadResponse>> getContent(@Valid @RequestBody AdvertisementReadRequest readRequest){
         return ResponseEntity.ok(readService.getContent(readRequest));
     }
 
-    @PostMapping("/readImage")
+    @PostMapping("/readByImageUrl")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<AdvertisementReadResponse>> getImage(@Valid @RequestBody AdvertisementReadRequest readRequest){
         return ResponseEntity.ok(readService.getImage(readRequest));

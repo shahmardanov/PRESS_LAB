@@ -1,6 +1,7 @@
 package com.example.press_lab.service.kart;
 
 import com.example.press_lab.exception.kart.KartFkNewsIdNotFoundException;
+import com.example.press_lab.exception.news.NewsContentNotFoundException;
 import com.example.press_lab.mappers.KartMapper;
 import com.example.press_lab.repository.KartRepository;
 import com.example.press_lab.request.kart.KartReadRequest;
@@ -20,6 +21,18 @@ public class KartReadService {
     public List<KartReadResponse> getAll(){
         return kartRepository.findAll()
                 .stream()
+                .map(kartMapper::mapReadToResponse)
+                .toList();
+    }
+
+    public List<KartReadResponse> getContent(KartReadRequest readRequest){
+        return kartRepository.findByContent(readRequest.getContent())
+                .stream()
+                .peek(news -> {
+                    if(kartRepository.findByContent(readRequest.getContent()).isEmpty()){
+                        throw new NewsContentNotFoundException();
+                    }
+                })
                 .map(kartMapper::mapReadToResponse)
                 .toList();
     }
