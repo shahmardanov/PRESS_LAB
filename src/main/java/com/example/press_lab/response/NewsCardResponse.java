@@ -12,9 +12,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class NewsCardResponse {
+
     private Long id;
     private String title;
     private LocalDateTime createdAt;
     private Long viewCount;
     private String imageUrl;
+
 }
