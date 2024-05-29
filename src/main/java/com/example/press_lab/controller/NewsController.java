@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -96,10 +97,22 @@ public class NewsController {
         return ResponseEntity.ok(categoryService.getMostViewedCategoryStatus());
     }
 
+    @PostMapping("/readMostViewedSubCategoryStatus")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<SubCategoryStatus> getMostViewedSubCategoryStatus(){
+        return ResponseEntity.ok(categoryService.getMostViewedSubCategoryStatus());
+    }
+
     @PostMapping("/readMost10ViewedCategoryStatus")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<CategoryStatus>> getMost10ViewedCategoryStatus(){
         return ResponseEntity.ok(categoryService.getMost10ViewedCategoryStatus());
+    }
+
+    @PostMapping("/readMost10ViewedSubCategoryStatus")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<SubCategoryStatus>> getMost10ViewedSubCategoryStatus(){
+        return ResponseEntity.ok(categoryService.getMost10ViewedSubCategoryStatus());
     }
 
     @PostMapping("/update")
