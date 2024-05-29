@@ -90,6 +90,18 @@ public class NewsController {
         return ResponseEntity.ok(recentService.getRecentNews(page, size));
     }
 
+    @PostMapping("/readMostViewedCategoryStatus")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<CategoryStatus> getMostViewedCategoryStatus(){
+        return ResponseEntity.ok(categoryService.getMostViewedCategoryStatus());
+    }
+
+    @PostMapping("/readMost10ViewedCategoryStatus")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<CategoryStatus>> getMost10ViewedCategoryStatus(){
+        return ResponseEntity.ok(categoryService.getMost10ViewedCategoryStatus());
+    }
+
     @PostMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<NewsUpdateResponse> update(@Valid @RequestBody NewsUpdateRequest updateRequest){
