@@ -34,14 +34,14 @@ public class KartController {
 
     @PostMapping("/readByContent")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<KartReadResponse>> getContent(@Valid @RequestBody KartReadRequest readRequest){
-        return ResponseEntity.ok(readService.getContent(readRequest));
+    public ResponseEntity<List<KartReadResponse>> getKartByContent(@Valid @RequestBody KartReadRequest readRequest){
+        return ResponseEntity.ok(readService.getKartByContent(readRequest));
     }
 
     @PostMapping("/readByFkNewsId")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<KartReadResponse>> getFkNewsId(@Valid @RequestBody KartReadRequest readRequest){
-        return ResponseEntity.ok(readService.getFkNewsId(readRequest));
+    public ResponseEntity<List<KartReadResponse>> getKartByFkNewsId(@Valid @RequestBody KartReadRequest readRequest){
+        return ResponseEntity.ok(readService.getKartByFkNewsId(readRequest));
     }
 
     @PostMapping("/update")

@@ -34,14 +34,14 @@ public class AdvertisementController {
 
     @PostMapping("/readByContent")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<AdvertisementReadResponse>> getContent(@Valid @RequestBody AdvertisementReadRequest readRequest){
-        return ResponseEntity.ok(readService.getContent(readRequest));
+    public ResponseEntity<List<AdvertisementReadResponse>> getAdvertisementByContent(@Valid @RequestBody AdvertisementReadRequest readRequest){
+        return ResponseEntity.ok(readService.getAdvertisementByContent(readRequest));
     }
 
     @PostMapping("/readByImageUrl")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<AdvertisementReadResponse>> getImage(@Valid @RequestBody AdvertisementReadRequest readRequest){
-        return ResponseEntity.ok(readService.getImage(readRequest));
+    public ResponseEntity<List<AdvertisementReadResponse>> getAdvertisementByImageUrl(@Valid @RequestBody AdvertisementReadRequest readRequest){
+        return ResponseEntity.ok(readService.getAdvertisementByImageUrl(readRequest));
     }
 
     @PostMapping("/update")
