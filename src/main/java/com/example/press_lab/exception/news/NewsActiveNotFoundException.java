@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 
 import static com.example.press_lab.exception.error.ErrorMessage.*;
 
-public class NewsStatusActiveException extends GenericException {
+public class NewsActiveNotFoundException extends GenericException {
 
-    public NewsStatusActiveException(){
-        super(HttpStatus.CONFLICT, HttpStatus.CONFLICT.value(), NEWS_STATUS_ACTIVE);
+    public NewsActiveNotFoundException(){
+        super(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value(), NEWS_ACTIVE_NOT_FOUND);
     }
 
 }

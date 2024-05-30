@@ -1,6 +1,6 @@
 package com.example.press_lab.service.kart;
 
-import com.example.press_lab.exception.kart.KartFkNewsIdNotFoundException;
+import com.example.press_lab.entity.Kart;
 import com.example.press_lab.exception.news.NewsContentNotFoundException;
 import com.example.press_lab.mappers.KartMapper;
 import com.example.press_lab.repository.KartRepository;
@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,26 +26,24 @@ public class KartReadService {
                 .toList();
     }
 
-    public List<KartReadResponse> getContent(KartReadRequest readRequest){
-        return kartRepository.findByContent(readRequest.getContent())
+    public List<KartReadResponse> getKartByContent(KartReadRequest readRequest){
+        Optional<Kart> byContent = kartRepository.findByContent(readRequest.getContent());
+        if(byContent.isEmpty()){
+            throw new NewsContentNotFoundException();
+        }
+        return byContent
                 .stream()
-                .peek(news -> {
-                    if(kartRepository.findByContent(readRequest.getContent()).isEmpty()){
-                        throw new NewsContentNotFoundException();
-                    }
-                })
                 .map(kartMapper::mapReadToResponse)
                 .toList();
     }
 
-    public List<KartReadResponse> getFkNewsId(KartReadRequest readRequest){
-        return kartRepository.findByFkNewsId(readRequest.getFkNewsId())
+    public List<KartReadResponse> getKartByFkNewsId(KartReadRequest readRequest){
+        List<Kart> byFkNewsId = kartRepository.findByFkNewsId(readRequest.getFkNewsId());
+        if(byFkNewsId.isEmpty()){
+            throw new NewsContentNotFoundException();
+        }
+        return byFkNewsId
                 .stream()
-                .peek(kart -> {
-                    if(kartRepository.findByFkNewsId(readRequest.getFkNewsId()).isEmpty()){
-                        throw new KartFkNewsIdNotFoundException();
-                    }
-                })
                 .map(kartMapper::mapReadToResponse)
                 .toList();
     }

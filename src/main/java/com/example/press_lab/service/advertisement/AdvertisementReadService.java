@@ -1,5 +1,6 @@
 package com.example.press_lab.service.advertisement;
 
+import com.example.press_lab.entity.Advertisement;
 import com.example.press_lab.exception.advertisement.AdvertisementContentNotFoundException;
 import com.example.press_lab.exception.advertisement.AdvertisementSourceUrlNotFoundException;
 import com.example.press_lab.mappers.AdvertisementMapper;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,26 +26,24 @@ public class AdvertisementReadService {
                 .toList();
     }
 
-    public List<AdvertisementReadResponse> getContent(AdvertisementReadRequest readRequest){
+    public List<AdvertisementReadResponse> getAdvertisementByContent(AdvertisementReadRequest readRequest){
+        Optional<Advertisement> byContent = advertisementRepository.findByContent(readRequest.getContent());
+        if(byContent.isEmpty()){
+            throw new AdvertisementContentNotFoundException();
+        }
         return advertisementRepository.findByContent(readRequest.getContent())
                 .stream()
-                .peek(advertisement -> {
-                    if(advertisementRepository.findByContent(readRequest.getContent()).isEmpty()){
-                        throw new AdvertisementContentNotFoundException();
-                    }
-                })
                 .map(advertisementMapper::mapReadToResponse)
                 .toList();
     }
 
-    public List<AdvertisementReadResponse> getImage(AdvertisementReadRequest readRequest){
+    public List<AdvertisementReadResponse> getAdvertisementByImageUrl(AdvertisementReadRequest readRequest){
+        List<Advertisement> bySourceUrl = advertisementRepository.findBySourceUrl(readRequest.getSourceUrl());
+        if(bySourceUrl.isEmpty()){
+            throw new AdvertisementSourceUrlNotFoundException();
+        }
         return advertisementRepository.findBySourceUrl(readRequest.getSourceUrl())
                 .stream()
-                .peek(advertisement -> {
-                    if(Objects.isNull(advertisementRepository.findBySourceUrl(readRequest.getSourceUrl()))){
-                        throw new AdvertisementSourceUrlNotFoundException();
-                    }
-                })
                 .map(advertisementMapper::mapReadToResponse)
                 .toList();
     }

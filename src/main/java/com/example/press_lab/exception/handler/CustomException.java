@@ -68,17 +68,12 @@ public class CustomException {
     }
 
 
+
     @ExceptionHandler(NewsConflictException.class)
     @ResponseStatus(CONFLICT)
     public ProblemDetail handlerNewsConflictException(Exception ex){
         log.info("handlerNewsConflictException {}", ex.getMessage());
         return ProblemDetail.forStatusAndDetail(CONFLICT, ex.getMessage());
-    }
-    @ExceptionHandler(NewsContentNotFoundException.class)
-    @ResponseStatus(NOT_FOUND)
-    public ProblemDetail handlerNewsContentNotFoundException(Exception ex){
-        log.info("handlerNewsContentNotFoundException {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
     }
     @ExceptionHandler(NewsNotFoundException.class)
     @ResponseStatus(NOT_FOUND)
@@ -86,17 +81,35 @@ public class CustomException {
         log.info("handlerNewsNotFoundException {}", ex.getMessage());
         return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
     }
-    @ExceptionHandler(NewsStatusActiveException.class)
-    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(NewsContentNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerNewsContentNotFoundException(Exception ex){
+        log.info("handlerNewsContentNotFoundException {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
+    }
+    @ExceptionHandler(NewsActiveNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerNewsStatusActiveException(Exception ex){
         log.info("handlerNewsStatusActiveException {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(CONFLICT, ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
     }
-    @ExceptionHandler(NewsStatusInactiveException.class)
-    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(NewsInactiveNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
     public ProblemDetail handlerNewsStatusInActiveException(Exception ex){
         log.info("handlerNewsStatusInActiveException {}", ex.getMessage());
-        return ProblemDetail.forStatusAndDetail(CONFLICT, ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
+    }
+    @ExceptionHandler(NewsCategoryNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerNewsCategoryNotFoundException(Exception ex){
+        log.info("handlerNewsCategoryNotFoundException {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
+    }
+    @ExceptionHandler(NewsSubCategoryNotFoundException.class)
+    @ResponseStatus(NOT_FOUND)
+    public ProblemDetail handlerNewsSubCategoryNotFoundException(Exception ex){
+        log.info("handlerNewsSubCategoryNotFoundException {}", ex.getMessage());
+        return ProblemDetail.forStatusAndDetail(NOT_FOUND, ex.getMessage());
     }
 
 }
