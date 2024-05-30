@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,15 +65,15 @@ public class NewsController {
     public ResponseEntity<List<NewsReadResponse>> getByCategory(@RequestParam CategoryStatus categoryStatus,
                                                                 @RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(categoryService.getNewsByCategory(categoryStatus, page, size));
+        return ResponseEntity.ok(readService.getNewsByCategory(categoryStatus, page, size));
     }
 
     @PostMapping("/readBySubCategory")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<NewsReadResponse>> getBySubCategory(@RequestParam SubCategoryStatus subCategoryStatus,
-                                                                   @RequestParam(defaultValue = "0") int page,
-                                                                   @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(categoryService.getNewsBySubCategory(subCategoryStatus, page, size));
+                                                                @RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(readService.getNewsBySubCategory(subCategoryStatus, page, size));
     }
 
     @PostMapping("/readByCategoryAndSubCategory")
@@ -81,7 +82,7 @@ public class NewsController {
                                                                               @RequestParam(required = false) SubCategoryStatus subCategoryStatus,
                                                                               @RequestParam(defaultValue = "0") int page,
                                                                               @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(categoryService.getNewsByCategoryAndSubCategory(categoryStatus, subCategoryStatus, page, size));
+        return ResponseEntity.ok(readService.getNewsByCategoryAndSubCategory(categoryStatus, subCategoryStatus, page, size));
     }
 
     @PostMapping("/readRecentNews")
@@ -91,28 +92,29 @@ public class NewsController {
         return ResponseEntity.ok(recentService.getRecentNews(page, size));
     }
 
-    @PostMapping("/readMostViewedCategoryStatus")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CategoryStatus> getMostViewedCategoryStatus(){
-        return ResponseEntity.ok(categoryService.getMostViewedCategoryStatus());
+    @PostMapping("/mostViewedCategory")
+    public List<CategoryStatus> getMostViewedCategoryStatus() {
+        return categoryService.getMostViewedCategoryStatus();
     }
 
-    @PostMapping("/readMostViewedSubCategoryStatus")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<SubCategoryStatus> getMostViewedSubCategoryStatus(){
-        return ResponseEntity.ok(categoryService.getMostViewedSubCategoryStatus());
+    @PostMapping("/mostViewedSubCategory")
+    public List<Object[]> getMostViewedSubCategoryStatus() {
+        return categoryService.getMostViewedSubCategoryStatus();
     }
 
-    @PostMapping("/readMost10ViewedCategoryStatus")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<CategoryStatus>> getMost10ViewedCategoryStatus(){
-        return ResponseEntity.ok(categoryService.getMost10ViewedCategoryStatus());
+    @PostMapping("/mostViewedSubCategoryFromCategory")
+    public List<Object[]>  getMostViewedSubCategoryStatusFromCategory(@RequestParam CategoryStatus categoryStatus) {
+        return categoryService.getMostViewedSubCategoryStatusFromCategory(categoryStatus);
     }
 
-    @PostMapping("/readMost10ViewedSubCategoryStatus")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<SubCategoryStatus>> getMost10ViewedSubCategoryStatus(){
-        return ResponseEntity.ok(categoryService.getMost10ViewedSubCategoryStatus());
+    @PostMapping("/most5ViewedCategories")
+    public List<Object[]> getMost5ViewedCategoryStatus() {
+        return categoryService.getMost5ViewedCategoryStatus();
+    }
+
+    @PostMapping("/most5ViewedSubCategories")
+    public List<Object[]> getMost5ViewedSubCategoryStatus() {
+        return categoryService.getMost5ViewedSubCategoryStatus();
     }
 
     @PostMapping("/update")

@@ -24,6 +24,7 @@ public class NewsCreateService {
         }
 
         News news = newsMapper.mapRequestToEntity(createRequest);
+        news.setViewCount(0L);
         newsRepository.save(news);
         return newsMapper.mapCreateToResponse(news);
     }

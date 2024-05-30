@@ -48,5 +48,4 @@ public class News implements Serializable {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-
 }
