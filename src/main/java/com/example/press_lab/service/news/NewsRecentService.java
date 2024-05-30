@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,6 +25,19 @@ public class NewsRecentService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<News> newsPage = newsRepository.findAll(pageable);
         return newsPage.stream()
+                .map(newsMapper::mapReadToResponse)
+                .toList();
+    }
+
+    public List<NewsReadResponse> getRecentNewsLast24Hours(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime last24Hours = now.minusHours(24);
+
+        Page<News> recentNews = newsRepository.findByCreatedAtAfter(last24Hours, pageable);
+
+        return recentNews.stream()
                 .map(newsMapper::mapReadToResponse)
                 .toList();
     }

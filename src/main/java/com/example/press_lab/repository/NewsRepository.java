@@ -6,10 +6,12 @@ import com.example.press_lab.enums.NewsStatus;
 import com.example.press_lab.enums.SubCategoryStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     Page<News> findByStatusAndCategoryStatusAndSubCategoryStatus(NewsStatus status, CategoryStatus categoryStatus, SubCategoryStatus subCategoryStatus, Pageable pageable);
 
     Optional<News> findByStatusAndCategoryStatusAndSubCategoryStatus(NewsStatus status, CategoryStatus categoryStatus, SubCategoryStatus subCategoryStatus);
+
+    Page<News> findByCreatedAtAfter(LocalDateTime dateTime, Pageable pageable);
 
     @Query("SELECT n.categoryStatus, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +

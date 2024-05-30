@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +22,7 @@ public class NewsController {
     private final NewsReadService readService;
     private final NewsUpdateService updateService;
     private final NewsDeleteService deleteService;
-    private final NewsCategoryService categoryService;
+    private final NewsViewCountService categoryService;
     private final NewsRecentService recentService;
 
     @PostMapping("/create")
@@ -90,6 +88,13 @@ public class NewsController {
     public ResponseEntity<List<NewsReadResponse>> getRecentNews(@RequestParam(defaultValue = "0") int page,
                                                                 @RequestParam(defaultValue = "10") int size){
         return ResponseEntity.ok(recentService.getRecentNews(page, size));
+    }
+
+    @PostMapping("/readRecentNewsLast24Hours")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<NewsReadResponse>> getRecentNewsLast24Hours(@RequestParam(defaultValue = "0") int page,
+                                                                            @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(recentService.getRecentNewsLast24Hours(page, size));
     }
 
     @PostMapping("/mostViewedCategory")
