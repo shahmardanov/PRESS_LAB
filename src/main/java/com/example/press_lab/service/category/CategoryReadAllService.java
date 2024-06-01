@@ -2,7 +2,7 @@ package com.example.press_lab.service.category;
 
 import com.example.press_lab.mappers.CategoryMapper;
 import com.example.press_lab.repository.CategoryRepository;
-import com.example.press_lab.request.category.CategoryResponse;
+import com.example.press_lab.response.category.CategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

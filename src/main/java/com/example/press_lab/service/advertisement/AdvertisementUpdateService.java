@@ -23,4 +23,5 @@ public class AdvertisementUpdateService {
         Advertisement save = advertisementRepository.save(updated);
         return advertisementMapper.mapUpdateToResponse(save);
     }
+
 }

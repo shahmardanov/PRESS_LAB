@@ -44,7 +44,7 @@ public class NewsController {
         return ResponseEntity.ok(newsReadService.getNewsById(newsId));
     }
 
-    @GetMapping("/readAll")
+    @GetMapping("/read-all")
     public ResponseEntity<List<NewsReadResponse>> getAll() {
         return ResponseEntity.ok(readService.getAllNews());
     }
@@ -59,27 +59,27 @@ public class NewsController {
         incrementViewCount.incrementNewsViewCount(newsId);
     }
 
-    @PostMapping("/read-by-Content")
+    @PostMapping("/by-content")
     public ResponseEntity<List<NewsReadResponse>> getContent(@Valid @RequestBody NewsReadRequest readRequest) {
         return ResponseEntity.ok(readService.getNewsByContent(readRequest));
     }
 
-    @PostMapping("/read-by-status")
+    @PostMapping("/by-status")
     public ResponseEntity<List<NewsCardResponse>> getStatus(@Valid @RequestBody NewsReadByStatusRequest statusRequest) {
         return ResponseEntity.ok(readService.getNewsByStatus(statusRequest));
     }
 
-    @PostMapping("/read-by-category")
+    @PostMapping("/by-category")
     public ResponseEntity<List<NewsCardResponse>> getByCategory(@Valid @RequestBody NewsReadByCategoryRequest categoryRequest) {
         return ResponseEntity.ok(readService.getNewsByCategory(categoryRequest));
     }
 
-    @PostMapping("/read-by-subCategory")
+    @PostMapping("/by-subCategory")
     public ResponseEntity<List<NewsCardResponse>> getBySubCategory(@Valid @RequestBody NewsReadBySubCategoryRequest subCategoryRequest) {
         return ResponseEntity.ok(readService.getNewsBySubCategory(subCategoryRequest));
     }
 
-    @PostMapping("/read-by-category-subCategory")
+    @PostMapping("/by-category-subCategory")
     public ResponseEntity<List<NewsCardResponse>> getByCategoryAndSubCategory(@Valid @RequestBody NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest) {
         return ResponseEntity.ok(readService.getNewsByCategoryAndSubCategory(categoryAndSubCategoryRequest));
     }
@@ -94,27 +94,27 @@ public class NewsController {
         return ResponseEntity.ok(recentService.getRecentNewsLast24Hours(newsReadByPage));
     }
 
-    @GetMapping("/mostViewedCategory")
+    @GetMapping("/most-viewed-category")
     public List<Long> getMostViewedCategoryStatus() {
         return categoryService.getMostViewedCategoryStatus();
     }
 
-    @GetMapping("/mostViewedSubCategory")
+    @GetMapping("/most-viewed-subCategory")
     public List<Object[]> getMostViewedSubCategoryStatus() {
         return categoryService.getMostViewedSubCategoryStatus();
     }
 
-    @PostMapping("/mostViewedSubCategoryFromCategory")
+    @PostMapping("/most-viewed-subCategory-from-category")
     public List<Object[]> getMostViewedSubCategoryStatusFromCategory(@RequestParam Long fkCategoryId) {
         return categoryService.getMostViewedSubCategoryStatusFromCategory(fkCategoryId);
     }
 
-    @GetMapping("/most5ViewedCategories")
+    @GetMapping("/most5-viewed-categories")
     public List<Object[]> getMost5ViewedCategoryStatus() {
         return categoryService.getMost5ViewedCategoryStatus();
     }
 
-    @GetMapping("/most5ViewedSubCategories")
+    @GetMapping("/most5-viewed-subCategories")
     public List<Object[]> getMost5ViewedSubCategoryStatus() {
         return categoryService.getMost5ViewedSubCategoryStatus();
     }
@@ -125,13 +125,13 @@ public class NewsController {
         return ResponseEntity.ok(updateService.update(updateRequest));
     }
 
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/delete-all")
     @ResponseStatus(HttpStatus.OK)
     public void deleteAll() {
         deleteService.deleteAll();
     }
 
-    @DeleteMapping("/deleteById")
+    @DeleteMapping("/delete-by-id")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@Valid @RequestBody NewsDeleteRequest deleteRequest) {
         deleteService.deleteById(deleteRequest);

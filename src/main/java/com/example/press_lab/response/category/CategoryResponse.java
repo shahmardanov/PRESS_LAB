@@ -1,4 +1,4 @@
-package com.example.press_lab.request.category;
+package com.example.press_lab.response.category;
 
 import lombok.*;
 
