@@ -1,0 +1,59 @@
+package com.example.press_lab.entity;
+
+import com.example.press_lab.enums.NewsStatus;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import static com.example.press_lab.enums.NewsStatus.ACTIVE;
+
+@Table(name = "news")
+@Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class News implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    private String title;
+    private String content;
+    private String description;
+    private Long viewCount;
+    private Long fkCategoryId;
+    private Long fkSubCategoryId;
+
+    @Lob
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    private NewsStatus status;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void setStatus() {
+        if (status == null) {
+            status=ACTIVE;
+        }
+        if (viewCount == null) {
+            viewCount=0L;
+        }
+    }
+
+}
