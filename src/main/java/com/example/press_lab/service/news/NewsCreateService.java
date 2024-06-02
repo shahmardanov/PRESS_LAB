@@ -6,7 +6,6 @@ import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;
 import com.example.press_lab.request.news.NewsCreateRequest;
 import com.example.press_lab.response.news.NewsCreateResponse;
-import com.example.press_lab.service.emailService.EmailService;
 import com.example.press_lab.service.subscriptionService.NotifySubscription;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

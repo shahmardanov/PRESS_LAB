@@ -15,4 +15,5 @@ public class JacksonConfig {
         mapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
         return mapper;
     }
+
 }

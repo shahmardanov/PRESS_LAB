@@ -4,6 +4,7 @@ import com.example.press_lab.entity.SubCategory;
 import com.example.press_lab.mappers.SubCategoryMapper;
 import com.example.press_lab.repository.SubCategoryRepository;
 import com.example.press_lab.request.subCategory.SubCategoryRequest;
+import com.example.press_lab.response.subCategory.SubCategoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

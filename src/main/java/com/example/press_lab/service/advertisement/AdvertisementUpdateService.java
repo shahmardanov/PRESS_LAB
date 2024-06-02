@@ -9,8 +9,6 @@ import com.example.press_lab.response.advertisement.AdvertisementUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class AdvertisementUpdateService {

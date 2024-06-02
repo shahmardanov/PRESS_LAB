@@ -6,7 +6,6 @@ import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;
 import com.example.press_lab.request.news.NewsReadByPage;
 import com.example.press_lab.response.news.NewsCardResponse;
-import com.example.press_lab.response.news.NewsReadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,6 +1,7 @@
 package com.example.press_lab.controller;
 
 import com.example.press_lab.request.subCategory.SubCategoryRequest;
+import com.example.press_lab.response.subCategory.SubCategoryResponse;
 import com.example.press_lab.service.subCategory.SubCategoryCreateService;
 import com.example.press_lab.service.subCategory.SubCategoryDeleteService;
 import com.example.press_lab.service.subCategory.SubCategoryReadAllService;
