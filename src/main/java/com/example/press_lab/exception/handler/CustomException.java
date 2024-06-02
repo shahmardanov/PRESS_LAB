@@ -23,6 +23,7 @@ public class CustomException extends ResponseEntityExceptionHandler {
     public ProblemDetail handlerAdvertisementConflictException(GenericException ex){
         log.info("handlerAdvertisementConflictException {}", ex.getMessage());
         return ProblemDetail.forStatusAndDetail(ex.getHttpStatus(), ex.getMessage());
+
     }
 
     @Override
