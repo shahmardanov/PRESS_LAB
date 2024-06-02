@@ -1,5 +1,6 @@
 server:
   port: 8585
+
 #
 #spring:
 #  application:
@@ -36,7 +37,6 @@ spring:
           persistence:
             sharedCache:
               mode: ENABLE_SELECTIVE
-
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: false
