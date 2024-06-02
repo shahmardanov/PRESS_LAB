@@ -25,6 +25,7 @@ public class NewsController {
     private final NewsViewCountService categoryService;
     private final NewsRecentService recentService;
 
+    //
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<NewsCreateResponse> create(@RequestBody @Valid NewsCreateRequest createRequest){
