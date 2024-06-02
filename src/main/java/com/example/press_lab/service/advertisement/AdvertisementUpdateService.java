@@ -9,8 +9,6 @@ import com.example.press_lab.response.advertisement.AdvertisementUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class AdvertisementUpdateService {
@@ -23,4 +21,5 @@ public class AdvertisementUpdateService {
         Advertisement save = advertisementRepository.save(updated);
         return advertisementMapper.mapUpdateToResponse(save);
     }
+
 }

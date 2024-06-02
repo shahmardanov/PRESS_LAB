@@ -1,7 +1,7 @@
 package com.example.press_lab.controller;
 
 import com.example.press_lab.request.subCategory.SubCategoryRequest;
-import com.example.press_lab.request.subCategory.SubCategoryResponse;
+import com.example.press_lab.response.subCategory.SubCategoryResponse;
 import com.example.press_lab.service.subCategory.SubCategoryCreateService;
 import com.example.press_lab.service.subCategory.SubCategoryDeleteService;
 import com.example.press_lab.service.subCategory.SubCategoryReadAllService;
@@ -39,7 +39,7 @@ public class SubCategoryController {
         return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategoryByCategoryId(fkCategoryId));
     }
 
-    @GetMapping("All")
+    @GetMapping("all")
     public ResponseEntity<List<SubCategoryResponse>> getAllSubCategory() {
         return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategory());
     }

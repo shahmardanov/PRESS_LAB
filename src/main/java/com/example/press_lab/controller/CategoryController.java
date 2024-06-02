@@ -1,7 +1,7 @@
 package com.example.press_lab.controller;
 
 import com.example.press_lab.request.category.CategoryRequest;
-import com.example.press_lab.request.category.CategoryResponse;
+import com.example.press_lab.response.category.CategoryResponse;
 import com.example.press_lab.service.category.CategoryCreateService;
 import com.example.press_lab.service.category.CategoryDeleteService;
 import com.example.press_lab.service.category.CategoryReadAllService;
