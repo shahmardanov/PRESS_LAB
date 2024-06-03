@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 import static com.example.press_lab.enums.NewsStatus.ACTIVE;
 
+@Table(name = "news")
 @Entity
 @Getter
 @Setter
@@ -47,5 +48,14 @@ public class News implements Serializable {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @PrePersist
+    public void setStatus() {
+        if (status == null) {
+            status=ACTIVE;
+        }
+        if (viewCount == null) {
+            viewCount=0L;
+        }
+    }
 
 }
