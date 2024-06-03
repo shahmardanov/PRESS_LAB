@@ -1,11 +1,8 @@
 package com.example.press_lab.request.advertisement;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,8 +10,11 @@ import lombok.Setter;
 public class AdvertisementReadRequest {
 
     private Long id;
+
     private String content;
+
     private String sourceUrl;
+
     private Long viewCount;
 
 }

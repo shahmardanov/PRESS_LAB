@@ -21,4 +21,9 @@ public class ErrorMessage {
     public static final String ADVERTISEMENT_SOURCE_URL_NOT_FOUND = "Advertisement not found with given souceUrl";
     public static final String ADVERTISEMENT_ALREADY_EXISTS = "Advertisement already exists";
 
+    public static final String CATEGORY_NOT_FOUND = "Category not found with given id";
+
+    public static final String SUBCATEGORY_NOT_FOUND = "SubCategory not found with given id";
+
+
 }

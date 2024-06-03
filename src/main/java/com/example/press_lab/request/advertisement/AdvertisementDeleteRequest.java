@@ -1,17 +1,17 @@
 package com.example.press_lab.request.advertisement;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdvertisementDeleteRequest {
 
+    @NotNull
     private Long id;
 
 }

@@ -1,7 +1,6 @@
 package com.example.press_lab.service.advertisement;
 
 import com.example.press_lab.exception.advertisement.AdvertisementNotFoundException;
-import com.example.press_lab.mappers.AdvertisementMapper;
 import com.example.press_lab.repository.AdvertisementRepository;
 import com.example.press_lab.request.advertisement.AdvertisementDeleteRequest;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AdvertisementDeleteService {
     private final AdvertisementRepository advertisementRepository;
-    private final AdvertisementMapper advertisementMapper;
 
     public void deleteAll(){
         advertisementRepository.deleteAll();

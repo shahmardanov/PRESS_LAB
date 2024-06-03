@@ -1,8 +1,6 @@
 package com.example.press_lab.entity;
 
-import com.example.press_lab.enums.CategoryStatus;
 import com.example.press_lab.enums.NewsStatus;
-import com.example.press_lab.enums.SubCategoryStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -11,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import static com.example.press_lab.enums.NewsStatus.ACTIVE;
 
 @Table(name = "news")
 @Entity
@@ -28,24 +28,34 @@ public class News implements Serializable {
     private Long id;
 
     private String title;
-    private String content;
-    private String imageUrl;
-    private Long viewCount;
     private String description;
+    private Long viewCount;
+    private Long fkCategoryId;
+    private Long fkSubCategoryId;
+
+    @Lob
+    private String content;
+
+    @Lob
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private NewsStatus status;
-
-    @Enumerated(EnumType.STRING)
-    private CategoryStatus categoryStatus;
-
-    @Enumerated(EnumType.STRING)
-    private SubCategoryStatus subCategoryStatus;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void setStatus() {
+        if (status == null) {
+            status=ACTIVE;
+        }
+        if (viewCount == null) {
+            viewCount=0L;
+        }
+    }
 
 }

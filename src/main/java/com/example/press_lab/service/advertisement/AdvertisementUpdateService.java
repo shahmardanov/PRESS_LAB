@@ -9,8 +9,6 @@ import com.example.press_lab.response.advertisement.AdvertisementUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class AdvertisementUpdateService {
@@ -19,26 +17,9 @@ public class AdvertisementUpdateService {
 
     public AdvertisementUpdateResponse update(AdvertisementUpdateRequest updateRequest){
         Advertisement advertisement = advertisementRepository.findById(updateRequest.getId()).orElseThrow(AdvertisementNotFoundException::new);
-
-        if(Objects.nonNull(updateRequest.getTitle())){
-            advertisement.setTitle(updateRequest.getTitle());
-        }
-        if(Objects.nonNull(updateRequest.getContent())){
-            advertisement.setContent(updateRequest.getContent());
-        }
-        if(Objects.nonNull(updateRequest.getImageUrl())){
-            advertisement.setImageUrl(updateRequest.getImageUrl());
-        }
-        if(Objects.nonNull(updateRequest.getViewCount())){
-            advertisement.setViewCount(updateRequest.getViewCount());
-        }
-        if(Objects.nonNull(updateRequest.getCreatedAt())){
-            advertisement.setCreatedAt(updateRequest.getCreatedAt());
-        }
-        if(Objects.nonNull(updateRequest.getUpdatedAt())){
-            advertisement.setUpdatedAt(updateRequest.getUpdatedAt());
-        }
-        advertisementRepository.save(advertisement);
-        return advertisementMapper.mapUpdateToResponse(advertisement);
+        Advertisement updated = advertisementMapper.updateAdvertisement(updateRequest, advertisement);
+        Advertisement save = advertisementRepository.save(updated);
+        return advertisementMapper.mapUpdateToResponse(save);
     }
+
 }

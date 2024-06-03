@@ -10,8 +10,6 @@ import com.example.press_lab.response.news.NewsUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 @RequiredArgsConstructor
 public class NewsUpdateService {
@@ -20,40 +18,9 @@ public class NewsUpdateService {
 
     public NewsUpdateResponse update(NewsUpdateRequest updateRequest){
         News news = newsRepository.findById(updateRequest.getId()).orElseThrow(NewsNotFoundException::new);
-
-        if(Objects.nonNull(updateRequest.getTitle())){
-            news.setTitle(updateRequest.getTitle());
-        }
-        if(Objects.nonNull(updateRequest.getContent())){
-            news.setContent(updateRequest.getContent());
-        }
-        if(Objects.nonNull(updateRequest.getImageUrl())){
-            news.setImageUrl(updateRequest.getImageUrl());
-        }
-        if(Objects.nonNull(updateRequest.getViewCount())){
-            news.setViewCount(updateRequest.getViewCount());
-        }
-        if(Objects.nonNull(updateRequest.getDescription())){
-            news.setDescription(updateRequest.getDescription());
-        }
-        if(Objects.nonNull(updateRequest.getStatus())){
-            news.setStatus(updateRequest.getStatus());
-        }
-        if(Objects.nonNull(updateRequest.getCreatedAt())){
-            news.setCreatedAt(updateRequest.getCreatedAt());
-        }
-        if(Objects.nonNull(updateRequest.getUpdatedAt())){
-            news.setUpdatedAt(updateRequest.getUpdatedAt());
-        }
-        if(Objects.nonNull(updateRequest.getCategoryStatus())){
-            news.setCategoryStatus(updateRequest.getCategoryStatus());
-        }
-        if(Objects.nonNull(updateRequest.getSubCategoryStatus())){
-            news.setSubCategoryStatus(updateRequest.getSubCategoryStatus());
-        }
-
-        newsRepository.save(news);
-        return newsMapper.mapUpdateToResponse(news);
+        News updatedNews = newsMapper.updateNewsToNewsUpdateResponse(updateRequest, news);
+        News savedNews = newsRepository.save(updatedNews);
+        return newsMapper.mapUpdateToResponse(savedNews);
     }
 
 }

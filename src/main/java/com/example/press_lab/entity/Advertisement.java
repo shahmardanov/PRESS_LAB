@@ -27,6 +27,8 @@ public class Advertisement {
 
     @Lob
     private String content;
+
+    @Lob
     private String imageUrl;
     private String sourceUrl;
     private Long viewCount;

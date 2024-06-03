@@ -1,13 +1,11 @@
 package com.example.press_lab.response.kart;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,5 +19,6 @@ public class KartCreateResponse {
     private Long fkNewsId;
     private String description;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

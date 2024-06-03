@@ -24,4 +24,5 @@ public class AdvertisementCreateService {
         advertisementRepository.save(advertisement);
         return advertisementMapper.mapCreateToResponse(advertisement);
     }
+
 }
