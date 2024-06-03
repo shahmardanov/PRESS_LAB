@@ -48,14 +48,5 @@ public class News implements Serializable {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @PrePersist
-    public void setStatus() {
-        if (status == null) {
-            status=ACTIVE;
-        }
-        if (viewCount == null) {
-            viewCount=0L;
-        }
-    }
 
 }
