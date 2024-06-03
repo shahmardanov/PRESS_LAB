@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 import static com.example.press_lab.enums.NewsStatus.ACTIVE;
 
-@Table(name = "news")
 @Entity
 @Getter
 @Setter
