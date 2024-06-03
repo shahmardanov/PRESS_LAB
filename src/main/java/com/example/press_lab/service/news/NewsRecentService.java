@@ -4,7 +4,8 @@ package com.example.press_lab.service.news;
 import com.example.press_lab.entity.News;
 import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;
-import com.example.press_lab.response.news.NewsReadResponse;
+import com.example.press_lab.request.news.NewsReadByPage;
+import com.example.press_lab.response.news.NewsCardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,16 +22,16 @@ public class NewsRecentService {
     private final NewsRepository newsRepository;
     private final NewsMapper newsMapper;
 
-    public List<NewsReadResponse> getRecentNews(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+    public List<NewsCardResponse> getRecentNews(NewsReadByPage newsReadByPage) {
+        Pageable pageable = PageRequest.of(newsReadByPage.getPage(), newsReadByPage.getSize(), Sort.by("createdAt").descending());
         Page<News> newsPage = newsRepository.findAll(pageable);
         return newsPage.stream()
-                .map(newsMapper::mapReadToResponse)
+                .map(newsMapper::mapReadToCardResponse)
                 .toList();
     }
 
-    public List<NewsReadResponse> getRecentNewsLast24Hours(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+    public List<NewsCardResponse> getRecentNewsLast24Hours(NewsReadByPage newsReadByPage) {
+        Pageable pageable = PageRequest.of(newsReadByPage.getPage(), newsReadByPage.getSize(), Sort.by("createdAt").descending());
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime last24Hours = now.minusHours(24);
@@ -38,7 +39,7 @@ public class NewsRecentService {
         Page<News> recentNews = newsRepository.findByCreatedAtAfter(last24Hours, pageable);
 
         return recentNews.stream()
-                .map(newsMapper::mapReadToResponse)
+                .map(newsMapper::mapReadToCardResponse)
                 .toList();
     }
 

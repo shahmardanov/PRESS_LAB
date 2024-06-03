@@ -1,15 +1,14 @@
 package com.example.press_lab.repository;
 
 import com.example.press_lab.entity.News;
-import com.example.press_lab.enums.CategoryStatus;
 import com.example.press_lab.enums.NewsStatus;
-import com.example.press_lab.enums.SubCategoryStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,50 +18,56 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     Optional<News> findByContent(String content);
 
-    Page<News> findByStatus(NewsStatus status, Pageable pageable);
+    List<News> findByStatus(NewsStatus status);
 
-    Page<News> findByStatusAndCategoryStatus(NewsStatus status, CategoryStatus categoryStatus, Pageable pageable);
+    Page<News> findByStatusAndFkCategoryId(NewsStatus status, Long fkCategoryId, Pageable pageable);
 
-    Page<News> findByStatusAndSubCategoryStatus(NewsStatus status, SubCategoryStatus subCategoryStatus, Pageable pageable);
+    Page<News> findByStatusAndFkSubCategoryId(NewsStatus status, Long fkSubCategoryId, Pageable pageable);
 
-    Page<News> findByStatusAndCategoryStatusAndSubCategoryStatus(NewsStatus status, CategoryStatus categoryStatus, SubCategoryStatus subCategoryStatus, Pageable pageable);
+    Page<News> findByStatusAndFkCategoryIdAndFkSubCategoryId(NewsStatus status, Long fkCategoryId, Long fkSubCategoryId, Pageable pageable);
 
-    Optional<News> findByStatusAndCategoryStatusAndSubCategoryStatus(NewsStatus status, CategoryStatus categoryStatus, SubCategoryStatus subCategoryStatus);
+    Optional<News> findByStatusAndFkCategoryIdAndFkSubCategoryId(NewsStatus status, Long fkCategoryId, Long fkSubCategoryId);
 
     Page<News> findByCreatedAtAfter(LocalDateTime dateTime, Pageable pageable);
 
-    @Query("SELECT n.categoryStatus, SUM(n.viewCount) AS totalViewCount " +
+    @Query("SELECT n.fkCategoryId, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +
-            "GROUP BY n.categoryStatus " +
+            "GROUP BY n.fkCategoryId " +
             "ORDER BY totalViewCount DESC")
-    List<CategoryStatus> findMostViewedCategoryStatus(Pageable pageable);
+    List<Long> findMostViewedCategoryStatus(Pageable pageable);
 
 
-    @Query("SELECT n.categoryStatus, n.subCategoryStatus, SUM(n.viewCount) AS totalViewCount " +
+    @Query("SELECT n.fkCategoryId, n.fkSubCategoryId, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +
-            "GROUP BY n.categoryStatus, n.subCategoryStatus " +
+            "GROUP BY n.fkCategoryId, n.fkSubCategoryId " +
             "ORDER BY totalViewCount DESC")
     List<Object[]> findMostViewedSubCategoryStatus();
 
-    @Query("SELECT n.subCategoryStatus, SUM(n.viewCount) AS totalViewCount " +
+    @Query("SELECT n.fkSubCategoryId, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +
-            "WHERE n.categoryStatus = :categoryStatus " +
-            "GROUP BY n.subCategoryStatus " +
+            "WHERE n.fkCategoryId = :fkCategoryId " +
+            "GROUP BY n.fkSubCategoryId " +
             "ORDER BY totalViewCount DESC")
-    List<Object[]> findMostViewedSubCategoryStatusFromCategory(@Param("categoryStatus") CategoryStatus categoryStatus);
+    List<Object[]> findMostViewedSubCategoryStatusFromCategory(@Param("fkCategoryId") Long fkCategoryId);
 
-    @Query("SELECT n.categoryStatus, SUM(n.viewCount) AS totalViewCount " +
+    @Query("SELECT n.fkCategoryId, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +
-            "GROUP BY n.categoryStatus " +
+            "GROUP BY n.fkCategoryId " +
             "ORDER BY totalViewCount DESC")
     List<Object[]> findMost5ViewedCategoryStatus(Pageable pageable);
 
-    @Query("SELECT n.categoryStatus, n.subCategoryStatus, SUM(n.viewCount) AS totalViewCount " +
+    @Query("SELECT n.fkCategoryId, n.fkSubCategoryId, SUM(n.viewCount) AS totalViewCount " +
             "FROM News n " +
-            "GROUP BY n.categoryStatus, n.subCategoryStatus " +
+            "GROUP BY n.fkCategoryId, n.fkSubCategoryId " +
             "ORDER BY totalViewCount DESC")
+
     List<Object[]> findMost5ViewedSubCategoryStatus(Pageable pageable);
 
+    List<News> findByOrderByViewCountDesc(Pageable pageable);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE News n SET n.viewCount = n.viewCount + 1 WHERE n.id = :id")
+    void incrementViewCount(Long id);
 
 }

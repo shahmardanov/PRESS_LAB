@@ -1,12 +1,11 @@
 package com.example.press_lab.response.news;
 
-import com.example.press_lab.enums.CategoryStatus;
 import com.example.press_lab.enums.NewsStatus;
-import com.example.press_lab.enums.SubCategoryStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,8 +19,8 @@ public class NewsCreateResponse {
     private Long viewCount;
     private String description;
     private NewsStatus status;
-    private CategoryStatus categoryStatus;
-    private SubCategoryStatus subCategoryStatus;
+    private Long fkCategoryId;
+    private Long fkSubCategoryId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

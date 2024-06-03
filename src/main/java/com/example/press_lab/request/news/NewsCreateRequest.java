@@ -1,29 +1,33 @@
 package com.example.press_lab.request.news;
 
 
-import com.example.press_lab.enums.CategoryStatus;
-import com.example.press_lab.enums.NewsStatus;
-import com.example.press_lab.enums.SubCategoryStatus;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewsCreateRequest {
 
-    private Long id;
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String content;
+
+    @NotBlank
     private String imageUrl;
-    private Long viewCount;
+
+    @NotBlank
     private String description;
-    private NewsStatus status;
-    private CategoryStatus categoryStatus;
-    private SubCategoryStatus subCategoryStatus;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    @NotNull
+    private Long fkCategoryId;
+
+    @NotNull
+    private Long fkSubCategoryId;
 
 }
