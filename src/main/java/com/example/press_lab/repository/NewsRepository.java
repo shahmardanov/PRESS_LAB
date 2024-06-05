@@ -25,9 +25,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     Page<News> findByStatusAndFkSubCategoryId(NewsStatus status, Long fkSubCategoryId, Pageable pageable);
 
     Page<News> findByStatusAndFkCategoryIdAndFkSubCategoryId(NewsStatus status, Long fkCategoryId, Long fkSubCategoryId, Pageable pageable);
-
-    Optional<News> findByStatusAndFkCategoryIdAndFkSubCategoryId(NewsStatus status, Long fkCategoryId, Long fkSubCategoryId);
-
+    
     Page<News> findByCreatedAtAfter(LocalDateTime dateTime, Pageable pageable);
 
     @Query("SELECT n.fkCategoryId, SUM(n.viewCount) AS totalViewCount " +
@@ -60,7 +58,6 @@ public interface NewsRepository extends JpaRepository<News, Long> {
             "FROM News n " +
             "GROUP BY n.fkCategoryId, n.fkSubCategoryId " +
             "ORDER BY totalViewCount DESC")
-
     List<Object[]> findMost5ViewedSubCategoryStatus(Pageable pageable);
 
     List<News> findByOrderByViewCountDesc(Pageable pageable);
