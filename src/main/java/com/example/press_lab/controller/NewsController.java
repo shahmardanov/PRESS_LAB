@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -40,18 +41,18 @@ public class NewsController {
     }
 
     @GetMapping("/{news-id}")
-    public ResponseEntity<NewsReadResponse> getNewsById(@PathVariable(name = "news-id") Long newsId) {
-        return ResponseEntity.ok(newsReadService.getNewsById(newsId));
+    public ResponseEntity<NewsReadResponse> getNewsById(@PathVariable(name = "news-id") Long newsId, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(newsReadService.getNewsById(newsId, locale));
     }
 
     @GetMapping("/read-all")
-    public ResponseEntity<List<NewsReadResponse>> getAll() {
-        return ResponseEntity.ok(readService.getAllNews());
+    public ResponseEntity<List<NewsReadResponse>> getAll(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(readService.getAllNews(locale));
     }
 
     @GetMapping("most-viewed")
-    public ResponseEntity<List<NewsCardResponse>> getMostViewed(@Valid @RequestBody NewsReadByPage newsReadByPage){
-        return ResponseEntity.ok(readService.getMostViewed(newsReadByPage));
+    public ResponseEntity<List<NewsCardResponse>> getMostViewed(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(readService.getMostViewed(newsReadByPage, locale));
     }
 
     @GetMapping("/increment/{news-id}")
@@ -65,33 +66,33 @@ public class NewsController {
     }
 
     @PostMapping("/by-status")
-    public ResponseEntity<List<NewsCardResponse>> getStatus(@Valid @RequestBody NewsReadByStatusRequest statusRequest) {
-        return ResponseEntity.ok(readService.getNewsByStatus(statusRequest));
+    public ResponseEntity<List<NewsCardResponse>> getStatus(@RequestHeader(name = "Accept-Language", required = false) Locale locale, @Valid @RequestBody NewsReadByStatusRequest statusRequest) {
+        return ResponseEntity.ok(readService.getNewsByStatus(statusRequest,locale));
     }
 
     @PostMapping("/by-category")
-    public ResponseEntity<List<NewsCardResponse>> getByCategory(@Valid @RequestBody NewsReadByCategoryRequest categoryRequest) {
-        return ResponseEntity.ok(readService.getNewsByCategory(categoryRequest));
+    public ResponseEntity<List<NewsCardResponse>> getByCategory(@Valid @RequestBody NewsReadByCategoryRequest categoryRequest, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(readService.getNewsByCategory(categoryRequest, locale));
     }
 
     @PostMapping("/by-subCategory")
-    public ResponseEntity<List<NewsCardResponse>> getBySubCategory(@Valid @RequestBody NewsReadBySubCategoryRequest subCategoryRequest) {
-        return ResponseEntity.ok(readService.getNewsBySubCategory(subCategoryRequest));
+    public ResponseEntity<List<NewsCardResponse>> getBySubCategory(@Valid @RequestBody NewsReadBySubCategoryRequest subCategoryRequest, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(readService.getNewsBySubCategory(subCategoryRequest, locale));
     }
 
     @PostMapping("/by-category-subCategory")
-    public ResponseEntity<List<NewsCardResponse>> getByCategoryAndSubCategory(@Valid @RequestBody NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest) {
-        return ResponseEntity.ok(readService.getNewsByCategoryAndSubCategory(categoryAndSubCategoryRequest));
+    public ResponseEntity<List<NewsCardResponse>> getByCategoryAndSubCategory(@Valid @RequestBody NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(readService.getNewsByCategoryAndSubCategory(categoryAndSubCategoryRequest, locale));
     }
 
     @PostMapping("/read-recent")
-    public ResponseEntity<List<NewsCardResponse>> getRecentNews(@Valid @RequestBody NewsReadByPage newsReadByPage) {
-        return ResponseEntity.ok(recentService.getRecentNews(newsReadByPage));
+    public ResponseEntity<List<NewsCardResponse>> getRecentNews(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(recentService.getRecentNews(newsReadByPage, locale));
     }
 
     @PostMapping("/read-recent-last24hours")
-    public ResponseEntity<List<NewsCardResponse>> getRecentNewsLast24Hours(@Valid @RequestBody NewsReadByPage newsReadByPage) {
-        return ResponseEntity.ok(recentService.getRecentNewsLast24Hours(newsReadByPage));
+    public ResponseEntity<List<NewsCardResponse>> getRecentNewsLast24Hours(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(recentService.getRecentNewsLast24Hours(newsReadByPage, locale));
     }
 
     @GetMapping("/most-viewed-category")
@@ -120,7 +121,6 @@ public class NewsController {
     }
 
     @PatchMapping("/update")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<NewsUpdateResponse> update(@Valid @RequestBody NewsUpdateRequest updateRequest) {
         return ResponseEntity.ok(updateService.update(updateRequest));
     }

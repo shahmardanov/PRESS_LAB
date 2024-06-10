@@ -1,12 +1,13 @@
 package com.example.press_lab.service.subCategory;
 
-import com.example.press_lab.mappers.SubCategoryMapper;
 import com.example.press_lab.repository.SubCategoryRepository;
 import com.example.press_lab.response.subCategory.SubCategoryResponse;
+import com.example.press_lab.util.LocaleResolverUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,20 +16,19 @@ public class SubCategoryReadAllService {
 
     private final SubCategoryRepository subCategoryRepository;
 
-    private final SubCategoryMapper subCategoryMapper;
+    private final LocaleResolverUtil localeResolverUtil;
 
-    public List<SubCategoryResponse> getAllSubCategory(){
-       return subCategoryRepository.findAll()
+    public List<SubCategoryResponse> getAllSubCategory(Locale locale) {
+        return subCategoryRepository.findAll()
                 .stream()
-                .map(subCategoryMapper::mapSubCategoryToResponse)
+                .map(subCategory -> localeResolverUtil.setForLocalSubCategory(subCategory, locale))
                 .collect(Collectors.toList());
-
     }
 
-    public List<SubCategoryResponse> getAllSubCategoryByCategoryId(Long fkCategoryId){
+    public List<SubCategoryResponse> getAllSubCategoryByCategoryId(Long fkCategoryId, Locale locale) {
         return subCategoryRepository.findByFkCategoryId(fkCategoryId)
                 .stream()
-                .map(subCategoryMapper::mapSubCategoryToResponse)
+                .map(subCategory -> localeResolverUtil.setForLocalSubCategory(subCategory, locale))
                 .collect(Collectors.toList());
 
     }

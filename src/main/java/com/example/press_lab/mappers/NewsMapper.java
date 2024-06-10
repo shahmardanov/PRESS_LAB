@@ -28,6 +28,4 @@ public interface NewsMapper {
 
     News updateNewsToNewsUpdateResponse(NewsUpdateRequest updateRequest, @MappingTarget News news);
 
-    List<NewsReadResponse> mapListEntityToListResponse(List<News> newsList);
-
 }

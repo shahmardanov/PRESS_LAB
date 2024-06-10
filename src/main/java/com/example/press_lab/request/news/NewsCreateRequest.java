@@ -16,13 +16,31 @@ public class NewsCreateRequest {
     private String title;
 
     @NotBlank
-    private String content;
+    private String titleRu;
 
     @NotBlank
-    private String imageUrl;
+    private String titleEn;
 
     @NotBlank
     private String description;
+
+    @NotBlank
+    private String descriptionRu;
+
+    @NotBlank
+    private String descriptionEn;
+
+    @NotBlank
+    private String content;
+
+    @NotBlank
+    private String contentRu;
+
+    @NotBlank
+    private String contentEn;
+
+    @NotBlank
+    private String imageUrl;
 
     @NotNull
     private Long fkCategoryId;

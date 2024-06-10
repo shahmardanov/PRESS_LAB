@@ -13,6 +13,7 @@ import com.example.press_lab.repository.SubCategoryRepository;
 import com.example.press_lab.request.news.*;
 import com.example.press_lab.response.news.NewsCardResponse;
 import com.example.press_lab.response.news.NewsReadResponse;
+import com.example.press_lab.util.LocaleResolverUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,10 +21,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.press_lab.enums.NewsStatus.ACTIVE;
+import static com.example.press_lab.util.LocaleResolverUtil.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,13 +39,17 @@ public class NewsReadAllService {
 
     private final NewsMapper newsMapper;
 
-    public List<NewsReadResponse> getAllNews() {
+    private final LocaleResolverUtil localeResolverUtil;
+
+    @Transactional
+    public List<NewsReadResponse> getAllNews(Locale locale) {
         return newsRepository.findAll()
                 .stream()
-                .map(newsMapper::mapReadToResponse)
+                .map(news -> localeResolverUtil.setForLocalId(news, locale))
                 .toList();
     }
 
+    @Transactional
     public List<NewsReadResponse> getNewsByContent(NewsReadRequest readRequest) {
         Optional<News> byContent = newsRepository.findByContent(readRequest.getContent());
         if (byContent.isEmpty()) {
@@ -54,18 +61,20 @@ public class NewsReadAllService {
                 .toList();
     }
 
-    public List<NewsCardResponse> getNewsByStatus(NewsReadByStatusRequest statusRequest) {
+    @Transactional
+    public List<NewsCardResponse> getNewsByStatus(NewsReadByStatusRequest statusRequest, Locale locale) {
         List<News> byStatus = newsRepository.findByStatus(statusRequest.getStatus());
         if (byStatus.isEmpty()) {
             throw new NewsNotFoundException();
         }
         return byStatus
                 .stream()
-                .map(newsMapper::mapReadToCardResponse)
+                .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }
 
-    public List<NewsCardResponse> getNewsByCategory(NewsReadByCategoryRequest categoryRequest) {
+    @Transactional
+    public List<NewsCardResponse> getNewsByCategory(NewsReadByCategoryRequest categoryRequest, Locale locale) {
         Category category = categoryRepository.findById(categoryRequest.getCategoryId()).orElseThrow(CategoryNotFoundException::new);
         Page<News> byStatusAndCategoryStatus = newsRepository.findByStatusAndFkCategoryId(ACTIVE, category.getId(), PageRequest.of(categoryRequest.getPage(), categoryRequest.getSize()));
         if (byStatusAndCategoryStatus.isEmpty()) {
@@ -73,11 +82,12 @@ public class NewsReadAllService {
         }
         return byStatusAndCategoryStatus
                 .stream()
-                .map(newsMapper::mapReadToCardResponse)
+                .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }
 
-    public List<NewsCardResponse> getNewsBySubCategory(NewsReadBySubCategoryRequest subCategoryRequest) {
+    @Transactional
+    public List<NewsCardResponse> getNewsBySubCategory(NewsReadBySubCategoryRequest subCategoryRequest, Locale locale) {
         SubCategory subCategory = subCategoryRepository.findById(subCategoryRequest.getSubCategoryId()).orElseThrow(SubCategoryNotFoundException::new);
         Page<News> byStatusAndSubCategoryStatus = newsRepository.findByStatusAndFkSubCategoryId(ACTIVE, subCategory.getId(), PageRequest.of(subCategoryRequest.getPage(), subCategoryRequest.getSize()));
         if (byStatusAndSubCategoryStatus.isEmpty()) {
@@ -85,11 +95,12 @@ public class NewsReadAllService {
         }
         return byStatusAndSubCategoryStatus
                 .stream()
-                .map(newsMapper::mapReadToCardResponse)
+                .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }
 
-    public List<NewsCardResponse> getNewsByCategoryAndSubCategory(NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest) {
+    @Transactional
+    public List<NewsCardResponse> getNewsByCategoryAndSubCategory(NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest, Locale locale) {
         Category category = categoryRepository.findById(categoryAndSubCategoryRequest.getCategoryId()).orElseThrow(CategoryNotFoundException::new);
         SubCategory subCategory = subCategoryRepository.findById(categoryAndSubCategoryRequest.getSubCategoryId()).orElseThrow(SubCategoryNotFoundException::new);
         Page<News> byStatusAndCategoryStatusAndSubCategoryStatus = newsRepository.findByStatusAndFkCategoryIdAndFkSubCategoryId(ACTIVE, category.getId(), subCategory.getId(), PageRequest.of(categoryAndSubCategoryRequest.getPage(), categoryAndSubCategoryRequest.getSize()));
@@ -98,16 +109,16 @@ public class NewsReadAllService {
         }
         return byStatusAndCategoryStatusAndSubCategoryStatus
                 .stream()
-                .map(newsMapper::mapReadToCardResponse)
+                .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }
 
     @Transactional
-    public List<NewsCardResponse> getMostViewed(NewsReadByPage newsReadByPage){
+    public List<NewsCardResponse> getMostViewed(NewsReadByPage newsReadByPage, Locale locale) {
         PageRequest of = PageRequest.of(newsReadByPage.getPage(), newsReadByPage.getSize());
         return newsRepository.findByOrderByViewCountDesc(of)
                 .stream()
-                .map(newsMapper::mapReadToCardResponse)
+                .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .collect(Collectors.toList());
     }
 

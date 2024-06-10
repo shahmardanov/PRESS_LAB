@@ -18,5 +18,7 @@ public class Category {
     private Long id;
 
     private String name;
+    private String nameRu;
+    private String nameEn;
 
 }

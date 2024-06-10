@@ -29,9 +29,9 @@ public class NewsCreateService {
             throw new NewsConflictException();
         }
         News news = newsMapper.mapRequestToEntity(createRequest);
-        newsRepository.save(news);
-        notifySubscription.notifySubscribers(news);
-        return newsMapper.mapCreateToResponse(news);
+        News save = newsRepository.save(news);
+        notifySubscription.notifySubscribers(save);
+        return newsMapper.mapCreateToResponse(save);
     }
 
 }

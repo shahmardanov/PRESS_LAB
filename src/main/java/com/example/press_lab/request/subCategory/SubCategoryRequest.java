@@ -14,6 +14,12 @@ public class SubCategoryRequest {
     @NotBlank
     private String  name;
 
+    @NotBlank
+    private String  nameRu;
+
+    @NotBlank
+    private String  nameEn;
+
     @NotNull
     private Long fkCategoryId;
 

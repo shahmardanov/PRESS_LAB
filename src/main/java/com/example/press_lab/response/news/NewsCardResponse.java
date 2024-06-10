@@ -13,7 +13,7 @@ public class NewsCardResponse {
 
     private Long id;
     private String title;
-    private String image;
+    private String imageUrl;
     private Long viewCount;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
