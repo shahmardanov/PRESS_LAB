@@ -3,6 +3,7 @@ package com.example.press_lab.util;
 import com.example.press_lab.entity.Category;
 import com.example.press_lab.entity.News;
 import com.example.press_lab.entity.SubCategory;
+import com.example.press_lab.exception.error.ErrorMessages;
 import com.example.press_lab.mappers.CategoryMapper;
 import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.mappers.SubCategoryMapper;
@@ -24,6 +25,7 @@ public class LocaleResolverUtil {
     private final CategoryMapper categoryMapper;
 
     private final SubCategoryMapper subCategoryMapper;
+    private final ErrorMessages errorMessages;
 
     public NewsCardResponse setForLocal(News news, Locale locale) {
         NewsCardResponse response = newsMapper.mapReadToCardResponse(news);
@@ -77,4 +79,8 @@ public class LocaleResolverUtil {
         return response;
     }
 
+    public String getMessage(String code, Locale locale) {
+        return errorMessages.getMessage(code, locale);
+    }
 }
+
