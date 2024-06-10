@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -34,8 +35,8 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryResponse>> getAllCategory() {
-        return ResponseEntity.ok(categoryReadAllService.getAllCategory());
+    public ResponseEntity<List<CategoryResponse>> getAllCategory(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(categoryReadAllService.getAllCategory(locale));
     }
 
     @PatchMapping("/update/{category-id}")

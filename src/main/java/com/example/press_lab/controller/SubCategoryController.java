@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -35,13 +36,13 @@ public class SubCategoryController {
     }
 
     @GetMapping("category/{fk-category-id}")
-    public ResponseEntity<List<SubCategoryResponse>> getAllSubCategoryByCategoryId(@PathVariable(name = "fk-category-id") Long fkCategoryId) {
-        return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategoryByCategoryId(fkCategoryId));
+    public ResponseEntity<List<SubCategoryResponse>> getAllSubCategoryByCategoryId(@RequestHeader(name = "Accept-Language", required = false) Locale locale, @PathVariable(name = "fk-category-id") Long fkCategoryId) {
+        return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategoryByCategoryId(fkCategoryId, locale));
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<SubCategoryResponse>> getAllSubCategory() {
-        return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategory());
+    public ResponseEntity<List<SubCategoryResponse>> getAllSubCategory(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+        return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategory(locale));
     }
 
     @ResponseStatus(OK)

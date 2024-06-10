@@ -28,13 +28,23 @@ public class News implements Serializable {
     private Long id;
 
     private String title;
+    private String titleRu;
+    private String titleEn;
     private String description;
+    private String descriptionRu;
+    private String descriptionEn;
     private Long viewCount;
     private Long fkCategoryId;
     private Long fkSubCategoryId;
 
     @Lob
     private String content;
+
+    @Lob
+    private String contentRu;
+
+    @Lob
+    private String contentEn;
 
     @Lob
     private String imageUrl;

@@ -15,4 +15,10 @@ public class CategoryRequest {
     @Pattern(regexp = "^[A-Z][a-zA-Z\\s]*$",message = "Write the category name correctly.")
     private String name;
 
+    @NotBlank
+    private String nameRu;
+
+    @NotBlank
+    private String nameEn;
+
 }

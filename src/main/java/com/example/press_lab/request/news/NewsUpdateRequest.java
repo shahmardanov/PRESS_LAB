@@ -19,15 +19,33 @@ public class NewsUpdateRequest {
     private String title;
 
     @NotBlank
+    private String titleRu;
+
+    @NotBlank
+    private String titleEn;
+
+    @NotBlank
     private String content;
 
     @NotBlank
-    private String imageUrl;
+    private String contentRu;
+
+    @NotBlank
+    private String contentEn;
 
     @NotBlank
     private String description;
 
     @NotBlank
+    private String descriptionRu;
+
+    @NotBlank
+    private String descriptionEn;
+
+    @NotBlank
+    private String imageUrl;
+
+    @NotNull
     private NewsStatus status;
 
     @NotNull
