@@ -6,16 +6,49 @@ spring:
     name: Press-lab
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/presslab
+    url: jdbc:postgresql://localhost:5432/presslab?createDatabaseIfNotExist=true
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tetbills@gmail.com
+    password: diab sqcn lfab odlk
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
+#spring:
+#  application:
+#      name: Press-lab
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/presslab
+#    username: root
+#    password: 1234
   jpa:
+    open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+#        jakarta:
+#          persistence:
+#            sharedCache:
+#              mode: ENABLE_SELECTIVE
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: false
+
+
+jwt:
+  secret-key: ${SECRET_KEY:YmluYXJ5IHNjaG9vbCB1bml0ZWNoIHRhc2sgc2VjcmV0IGtleSBmb3IgZGVtbyBhcHBsaWNhdGlvbiBlbmNvZGUgZWFjaCBsaW5lIHNlcGVyYXRheSB1c2VmdWwgZm9yIHdoZW4geW91IGhhdmUgbXVsdGlwbGUgZW50cmllcyBiYXNlNjQgZm9ybWF0IGphdmEgc3ByaW5nIGJvb3QgYWR2YW5jZWQgYmFja2VuZCBhbmQgbWljcm9zZXJ2aWNlcw==}
+
