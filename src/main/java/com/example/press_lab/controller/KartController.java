@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class KartController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<KartUpdateResponse> update(@Valid @RequestBody KartUpdateRequest updateRequest){
         return ResponseEntity.ok(updateService.update(updateRequest));
@@ -52,12 +54,14 @@ public class KartController {
 
     @PostMapping("/deleteAll")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteAll(){
         deleteService.deleteAll();
     }
 
     @PostMapping("/deleteById")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteById(@Valid @RequestBody KartDeleteRequest deleteRequest){
         deleteService.deleteById(deleteRequest);
     }

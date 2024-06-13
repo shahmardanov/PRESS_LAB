@@ -47,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     private Authentication getAuthenticationBearer(Claims claims) {
-        Map<String, Object> claims1 = (Map<String, Object>) claims.get("claims"); // Assuming 'token' is the map containing the JSON data
+        Map<String, Object> claims1 = (Map<String, Object>) claims.get("claims");
         List<?> roles = (List<?>) claims1.get("ROLE");
 
 //        List<?> roles = claims.get("ROLE", List.class);

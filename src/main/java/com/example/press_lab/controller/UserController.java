@@ -5,10 +5,8 @@ package com.example.press_lab.controller;
 import com.example.press_lab.request.user.AuthenticateRequest;
 import com.example.press_lab.request.user.JwtDto;
 import com.example.press_lab.request.user.UserCreateRequest;
-import com.example.press_lab.request.user.UserLoginRequest;
 import com.example.press_lab.response.user.UserCreateResponse;
 import com.example.press_lab.service.user.UserCreateServiceImpl;
-import com.example.press_lab.service.user.UserLoginService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class UserController {
 
 
-    private final UserLoginService userLoginService;
+
     private final UserCreateServiceImpl userCreateServiceImpl;
 
 
@@ -55,11 +53,7 @@ public class UserController {
 
 
 
-    @GetMapping("/login")
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<String> login(@RequestBody UserLoginRequest userLoginRequest) {
-        return ResponseEntity.ok(userLoginService.login(userLoginRequest));
-    }
+
 
 
 

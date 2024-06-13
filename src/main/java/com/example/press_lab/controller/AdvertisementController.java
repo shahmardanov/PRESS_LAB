@@ -6,6 +6,7 @@ import com.example.press_lab.service.advertisement.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -50,18 +51,21 @@ public class AdvertisementController {
     }
 
     @PatchMapping("/update")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<AdvertisementUpdateResponse> update(@Valid @RequestBody AdvertisementUpdateRequest updateRequest){
         return ResponseEntity.ok(updateService.update(updateRequest));
     }
 
     @DeleteMapping("/delete-all")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteAll(){
         deleteService.deleteAll();
     }
 
     @DeleteMapping("/delete-by-id")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteById(@Valid @RequestBody AdvertisementDeleteRequest deleteRequest){
         deleteService.deleteById(deleteRequest);
     }
