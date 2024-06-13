@@ -59,10 +59,10 @@ public class User implements UserDetails {
 
     @PrePersist
     public void autoFill() {
-        setAccountNonExpired(false);
-        setAccountNonLocked(false);
-        setCredentialsNonExpired(false);
-        setEnabled(false);
+        setAccountNonExpired(true);
+        setAccountNonLocked(true);
+        setCredentialsNonExpired(true);
+        setEnabled(true);
     }
 
 

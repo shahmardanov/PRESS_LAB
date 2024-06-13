@@ -16,12 +16,16 @@ spring:
     port: 587
     username: tetbills@gmail.com
     password: diab sqcn lfab odlk
+    protocol: smtp
     properties:
       mail:
         smtp:
+          ssl.trust: smtp.gmail.com
           auth: true
           starttls:
             enable: true
+
+
 
 
 #spring:

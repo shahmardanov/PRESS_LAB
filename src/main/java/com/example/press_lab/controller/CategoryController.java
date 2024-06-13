@@ -9,6 +9,7 @@ import com.example.press_lab.service.category.CategoryUpdateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,11 +41,13 @@ public class CategoryController {
     }
 
     @PatchMapping("/update/{category-id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<CategoryResponse> updateCategory(@PathVariable(name = "category-id") Long categoryId, @Valid @RequestBody CategoryRequest categoryRequest) {
         return ResponseEntity.ok(categoryUpdateService.updateCategory(categoryId, categoryRequest));
     }
 
     @DeleteMapping("/delete/{category-id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public void deleteCategory(@PathVariable(name = "category-id") Long categoryId) {
         categoryDeleteService.deleteCategory(categoryId);
     }

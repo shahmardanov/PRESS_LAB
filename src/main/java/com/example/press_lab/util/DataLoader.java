@@ -1,15 +1,21 @@
 package com.example.press_lab.util;
 
+import com.example.press_lab.entity.Authority;
 import com.example.press_lab.entity.Category;
 import com.example.press_lab.entity.SubCategory;
+import com.example.press_lab.entity.User;
 import com.example.press_lab.repository.CategoryRepository;
 import com.example.press_lab.repository.SubCategoryRepository;
+import com.example.press_lab.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +24,8 @@ public class DataLoader implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
 
     private final SubCategoryRepository subCategoryRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -64,6 +72,22 @@ public class DataLoader implements CommandLineRunner {
             subCategories.add(SubCategory.builder().name("Bloq").nameRu("Блог").nameEn("Blog").fkCategoryId(7L).build());
             subCategories.add(SubCategory.builder().name("Təqvim").nameRu("Календарь").nameEn("Calendar").fkCategoryId(7L).build());
             subCategoryRepository.saveAll(subCategories);
+        }
+        if (userRepository.count() == 0) {
+            List<User> users = new ArrayList<>();
+            Authority admin = Authority.builder()
+                    .authority("ADMIN").build();
+            users.add(User.builder().accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true)
+                    .username("mubarizhabiboglu@gmail.com").password(passwordEncoder.encode("press@#lab2019guys!?"))
+                    .email("mubarizhabiboglu@gmail.com").authorities(Set.of(admin)).birthDate(LocalDate.of(1990,1,1)).build());
+            users.add(User.builder().accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true)
+                    .username("mehinvaliyeva24@gmail.com").password(passwordEncoder.encode("mehinvali@!press#l@b0424"))
+                    .email("mehinvaliyeva24@gmail.com").authorities(Set.of(admin)).birthDate(LocalDate.of(1991,1,1)).build());
+            users.add(User.builder().accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true)
+                    .username("presslab.az@gmail.com").password(passwordEncoder.encode("Press#19L@b!13sayt"))
+                    .email("presslab.az@gmail.com").authorities(Set.of(admin)).birthDate(LocalDate.of(1992,1,1)).build());
+
+            userRepository.saveAll(users);
         }
     }
 
