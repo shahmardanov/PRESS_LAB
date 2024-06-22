@@ -5,7 +5,6 @@ import com.example.press_lab.entity.News;
 import com.example.press_lab.entity.SubCategory;
 import com.example.press_lab.exception.SubCategory.SubCategoryNotFoundException;
 import com.example.press_lab.exception.category.CategoryNotFoundException;
-import com.example.press_lab.exception.error.ErrorMessages;
 import com.example.press_lab.exception.news.*;
 import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.CategoryRepository;
@@ -41,7 +40,6 @@ public class NewsReadAllService {
     private final NewsMapper newsMapper;
 
     private final LocaleResolverUtil localeResolverUtil;
-    private final ErrorMessages errorMessages;
 
     @Transactional
     public List<NewsReadResponse> getAllNews(Locale locale) {
@@ -67,7 +65,7 @@ public class NewsReadAllService {
     public List<NewsCardResponse> getNewsByStatus(NewsReadByStatusRequest statusRequest, Locale locale) {
         List<News> byStatus = newsRepository.findByStatus(statusRequest.getStatus());
         if (byStatus.isEmpty()) {
-            throw new NewsNotFoundException(locale, errorMessages);
+            throw new NewsNotFoundException();
         }
         return byStatus
                 .stream()
@@ -107,8 +105,7 @@ public class NewsReadAllService {
         SubCategory subCategory = subCategoryRepository.findById(categoryAndSubCategoryRequest.getSubCategoryId()).orElseThrow(SubCategoryNotFoundException::new);
         Page<News> byStatusAndCategoryStatusAndSubCategoryStatus = newsRepository.findByStatusAndFkCategoryIdAndFkSubCategoryId(ACTIVE, category.getId(), subCategory.getId(), PageRequest.of(categoryAndSubCategoryRequest.getPage(), categoryAndSubCategoryRequest.getSize()));
         if (byStatusAndCategoryStatusAndSubCategoryStatus.isEmpty()) {
-            throw new NewsNotFoundException(locale, errorMessages);
-
+            throw new NewsNotFoundException();
         }
         return byStatusAndCategoryStatusAndSubCategoryStatus
                 .stream()
