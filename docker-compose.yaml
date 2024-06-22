@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    hostname: postgres
+    image: bitnami/postgresql:14
+    restart: always
+    volumes:
+      - postgres-data:/path/to/postgres/data
+    container_name: postgres_lab
+    environment:
+      POSTGRES_DB: presslab
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+    networks:
+      - shared-net
+
+
+  spring-app:
+    image: press_lab:0.0.1
+    container_name: Press_Lab
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8585:8585"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/presslab
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - shared-net
+
+volumes:
+  postgres-data:
+
+networks:
+  shared-net:
+    driver: bridge
