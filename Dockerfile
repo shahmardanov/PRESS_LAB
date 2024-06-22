@@ -6,6 +6,7 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests
 
 
+
 # Aşama 2: Uygulamayı çalıştırın
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
