@@ -5,6 +5,7 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
+
 # Aşama 2: Uygulamayı çalıştırın
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
