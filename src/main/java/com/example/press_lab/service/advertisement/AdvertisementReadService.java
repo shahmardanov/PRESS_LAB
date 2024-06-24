@@ -9,6 +9,7 @@ import com.example.press_lab.request.advertisement.AdvertisementReadRequest;
 import com.example.press_lab.response.advertisement.AdvertisementReadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class AdvertisementReadService {
     private final AdvertisementRepository advertisementRepository;
     private final AdvertisementMapper advertisementMapper;
 
+    @Transactional
     public List<AdvertisementReadResponse> getAll(){
         return advertisementRepository.findAll()
                 .stream()
@@ -26,6 +28,7 @@ public class AdvertisementReadService {
                 .toList();
     }
 
+    @Transactional
     public List<AdvertisementReadResponse> getAdvertisementByContent(AdvertisementReadRequest readRequest){
         Optional<Advertisement> byContent = advertisementRepository.findByContent(readRequest.getContent());
         if(byContent.isEmpty()){
@@ -37,6 +40,7 @@ public class AdvertisementReadService {
                 .toList();
     }
 
+    @Transactional
     public List<AdvertisementReadResponse> getAdvertisementByImageUrl(AdvertisementReadRequest readRequest){
         List<Advertisement> bySourceUrl = advertisementRepository.findBySourceUrl(readRequest.getSourceUrl());
         if(bySourceUrl.isEmpty()){

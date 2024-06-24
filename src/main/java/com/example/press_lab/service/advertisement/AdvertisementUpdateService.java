@@ -8,6 +8,7 @@ import com.example.press_lab.request.advertisement.AdvertisementUpdateRequest;
 import com.example.press_lab.response.advertisement.AdvertisementUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class AdvertisementUpdateService {
     private final AdvertisementRepository advertisementRepository;
     private final AdvertisementMapper advertisementMapper;
 
+    @Transactional
     public AdvertisementUpdateResponse update(AdvertisementUpdateRequest updateRequest){
         Advertisement advertisement = advertisementRepository.findById(updateRequest.getId()).orElseThrow(AdvertisementNotFoundException::new);
         Advertisement updated = advertisementMapper.updateAdvertisement(updateRequest, advertisement);

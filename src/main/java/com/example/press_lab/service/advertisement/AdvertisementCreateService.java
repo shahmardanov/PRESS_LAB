@@ -9,6 +9,7 @@ import com.example.press_lab.request.advertisement.AdvertisementCreateRequest;
 import com.example.press_lab.response.advertisement.AdvertisementCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ public class AdvertisementCreateService {
     private final AdvertisementRepository advertisementRepository;
     private final AdvertisementMapper advertisementMapper;
 
+    @Transactional
     public AdvertisementCreateResponse create (AdvertisementCreateRequest createRequest){
         if(advertisementRepository.findByContent(createRequest.getContent()).isPresent()){
             throw new AdvertisementConflictException();
