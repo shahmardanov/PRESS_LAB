@@ -1,7 +1,6 @@
 package com.example.press_lab.service.news;
 
 import com.example.press_lab.entity.News;
-import com.example.press_lab.exception.news.NewsConflictException;
 import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;
 import com.example.press_lab.request.news.NewsCreateRequest;
@@ -25,9 +24,6 @@ public class NewsCreateService {
 
     @Transactional
     public NewsCreateResponse create(NewsCreateRequest createRequest){
-        if(newsRepository.findByContent(createRequest.getContent()).isPresent()){
-            throw new NewsConflictException();
-        }
         News news = newsMapper.mapRequestToEntity(createRequest);
         News save = newsRepository.save(news);
         notifySubscription.notifySubscribers(save);
