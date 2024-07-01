@@ -7,6 +7,7 @@ import com.example.press_lab.request.news.NewsCreateRequest;
 import com.example.press_lab.response.news.NewsCreateResponse;
 import com.example.press_lab.service.subscriptionService.NotifySubscription;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +23,13 @@ public class NewsCreateService {
 
     private final NewsMapper newsMapper;
 
+    @SneakyThrows
     @Transactional
     public NewsCreateResponse create(NewsCreateRequest createRequest){
+        log.info("create service called with: {}",createRequest);
         News news = newsMapper.mapRequestToEntity(createRequest);
         News save = newsRepository.save(news);
+        log.info("news created: {}",save);
         notifySubscription.notifySubscribers(save);
         return newsMapper.mapCreateToResponse(save);
     }

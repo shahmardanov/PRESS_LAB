@@ -38,16 +38,19 @@ public class News implements Serializable {
     private Long fkSubCategoryId;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String contentRu;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String contentEn;
 
     @Lob
-    private String imageUrl;
+    private byte[] image;
 
     @Enumerated(EnumType.STRING)
     private NewsStatus status;
@@ -59,7 +62,7 @@ public class News implements Serializable {
     private LocalDateTime updatedAt;
 
     @PrePersist
-    public void setStatus() {
+    public void setStatusAndViewCount() {
         if (status == null) {
             status=ACTIVE;
         }

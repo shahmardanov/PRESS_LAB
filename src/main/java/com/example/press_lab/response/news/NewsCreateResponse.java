@@ -19,7 +19,6 @@ public class NewsCreateResponse {
     private String content;
     private String contentRu;
     private String contentEn;
-    private String imageUrl;
     private Long viewCount;
     private String description;
     private String descriptionRu;

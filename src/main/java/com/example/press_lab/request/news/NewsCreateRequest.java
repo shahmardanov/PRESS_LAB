@@ -4,6 +4,9 @@ package com.example.press_lab.request.news;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Builder
 @Getter
@@ -39,13 +42,17 @@ public class NewsCreateRequest {
     @NotBlank
     private String contentEn;
 
-    @NotBlank
-    private String imageUrl;
+    @NotNull
+    private MultipartFile image;
 
     @NotNull
     private Long fkCategoryId;
 
     @NotNull
     private Long fkSubCategoryId;
+
+    public byte[] getImageBytes() throws IOException {
+        return image != null ? image.getBytes() : null;
+    }
 
 }
