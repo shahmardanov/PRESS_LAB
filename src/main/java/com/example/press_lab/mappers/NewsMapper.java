@@ -8,15 +8,22 @@ import com.example.press_lab.response.news.NewsCreateResponse;
 import com.example.press_lab.response.news.NewsReadResponse;
 import com.example.press_lab.response.news.NewsUpdateResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+import java.io.IOException;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface NewsMapper {
 
-    News mapRequestToEntity(NewsCreateRequest newsCreateRequest);
+    @Mapping(target = "image", source = "imageBytes")
+    News mapRequestToEntity(NewsCreateRequest newsCreateRequest) throws IOException;
+
+//    default byte[] map(MultipartFile image) throws IOException {
+//        return image != null ? image.getBytes() : null;
+//    }
 
     NewsCreateResponse mapCreateToResponse(News news);
 

@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -19,6 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RequiredArgsConstructor
 @RequestMapping("/news")
 public class NewsController {
+
     private final NewsCreateService createService;
 
     private final NewsReadAllService readService;
@@ -36,8 +39,34 @@ public class NewsController {
     private final NewsViewCountIncrementService incrementViewCount;
 
     @PostMapping("/create")
-    public ResponseEntity<NewsCreateResponse> create(@RequestBody @Valid NewsCreateRequest createRequest) {
-        return ResponseEntity.status(CREATED).body(createService.create(createRequest));
+    public ResponseEntity<NewsCreateResponse> createNews(@RequestParam("title") String title,
+                                                         @RequestParam("titleRu") String titleRu,
+                                                         @RequestParam("titleEn") String titleEn,
+                                                         @RequestParam("description") String description,
+                                                         @RequestParam("descriptionRu") String descriptionRu,
+                                                         @RequestParam("descriptionEn") String descriptionEn,
+                                                         @RequestParam("content") String content,
+                                                         @RequestParam("contentRu") String contentRu,
+                                                         @RequestParam("contentEn") String contentEn,
+                                                         @RequestParam("image") MultipartFile image,
+                                                         @RequestParam("fkCategoryId") Long fkCategoryId,
+                                                         @RequestParam("fkSubCategoryId") Long fkSubCategoryId) throws IOException {
+
+        NewsCreateRequest newsCreateRequest = new NewsCreateRequest();
+        newsCreateRequest.setTitle(title);
+        newsCreateRequest.setTitleRu(titleRu);
+        newsCreateRequest.setTitleEn(titleEn);
+        newsCreateRequest.setDescription(description);
+        newsCreateRequest.setDescriptionRu(descriptionRu);
+        newsCreateRequest.setDescriptionEn(descriptionEn);
+        newsCreateRequest.setContent(content);
+        newsCreateRequest.setContentRu(contentRu);
+        newsCreateRequest.setContentEn(contentEn);
+        newsCreateRequest.setImage(image);
+        newsCreateRequest.setFkCategoryId(fkCategoryId);
+        newsCreateRequest.setFkSubCategoryId(fkSubCategoryId);
+
+        return ResponseEntity.status(CREATED).body(createService.create(newsCreateRequest));
     }
 
     @GetMapping("/{news-id}")

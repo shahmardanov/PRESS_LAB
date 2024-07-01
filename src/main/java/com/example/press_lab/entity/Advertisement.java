@@ -39,4 +39,11 @@ public class Advertisement {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @PrePersist
+    public void setStatus() {
+        if (viewCount == null) {
+            viewCount=0L;
+        }
+    }
+
 }
