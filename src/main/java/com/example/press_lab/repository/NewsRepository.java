@@ -16,6 +16,8 @@ import java.util.Optional;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
 
+    Optional<News> findByIdAndStatus(Long id, NewsStatus status);
+
     Optional<News> findByContent(String content);
 
     List<News> findByStatus(NewsStatus status);

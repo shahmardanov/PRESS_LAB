@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.press_lab.enums.NewsStatus.ACTIVE;
+
 @Service
 @RequiredArgsConstructor
 public class NewsRecentService {
@@ -30,6 +32,7 @@ public class NewsRecentService {
         Pageable pageable = PageRequest.of(newsReadByPage.getPage(), newsReadByPage.getSize(), Sort.by("createdAt").descending());
         Page<News> newsPage = newsRepository.findAll(pageable);
         return newsPage.stream()
+                .filter(news -> ACTIVE.equals(news.getStatus()))
                 .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }
@@ -41,6 +44,7 @@ public class NewsRecentService {
         LocalDateTime last24Hours = now.minusHours(24);
         Page<News> recentNews = newsRepository.findByCreatedAtAfter(last24Hours, pageable);
         return recentNews.stream()
+                .filter(news -> ACTIVE.equals(news.getStatus()))
                 .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .toList();
     }

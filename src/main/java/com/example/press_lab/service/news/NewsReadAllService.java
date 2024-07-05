@@ -26,7 +26,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.press_lab.enums.NewsStatus.ACTIVE;
-import static com.example.press_lab.util.LocaleResolverUtil.*;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +44,7 @@ public class NewsReadAllService {
     public List<NewsReadResponse> getAllNews(Locale locale) {
         return newsRepository.findAll()
                 .stream()
+                .filter(news -> ACTIVE.equals(news.getStatus()))
                 .map(news -> localeResolverUtil.setForLocalId(news, locale))
                 .toList();
     }
@@ -57,6 +57,7 @@ public class NewsReadAllService {
         }
         return byContent
                 .stream()
+                .filter(news -> ACTIVE.equals(news.getStatus()))
                 .map(newsMapper::mapReadToResponse)
                 .toList();
     }
@@ -118,6 +119,7 @@ public class NewsReadAllService {
         PageRequest of = PageRequest.of(newsReadByPage.getPage(), newsReadByPage.getSize());
         return newsRepository.findByOrderByViewCountDesc(of)
                 .stream()
+                .filter(news -> ACTIVE.equals(news.getStatus()))
                 .map(news -> localeResolverUtil.setForLocal(news, locale))
                 .collect(Collectors.toList());
     }
