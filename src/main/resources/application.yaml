@@ -11,11 +11,6 @@ spring:
     password: c8KBCw2vAy2d24YncSW3F9ojBb4UXxQV
     driver-class-name: org.postgresql.Driver
 
-#    url: jdbc:postgresql://localhost:5432/presslab?createDatabaseIfNotExist=true
-#    username: postgres
-#    password: root
-#    driver-class-name: org.postgresql.Driver
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -28,14 +23,6 @@ spring:
           starttls:
             enable: true
 
-
-#spring:
-#  application:
-#      name: Press-lab
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/presslab
-#    username: root
-#    password: 1234
   jpa:
     open-in-view: false
     hibernate:
