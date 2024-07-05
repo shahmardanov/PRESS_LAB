@@ -2,7 +2,6 @@ package com.example.press_lab.service.news;
 
 import com.example.press_lab.entity.News;
 import com.example.press_lab.exception.news.NewsNotFoundException;
-import com.example.press_lab.mappers.NewsMapper;
 import com.example.press_lab.repository.NewsRepository;
 import com.example.press_lab.request.news.NewsDeleteRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import static com.example.press_lab.enums.NewsStatus.INACTIVE;
 @RequiredArgsConstructor
 public class NewsDeleteService {
     private final NewsRepository newsRepository;
-    private final NewsMapper newsMapper;
 
     public void deleteAll(){
         newsRepository.deleteAll();
@@ -25,6 +23,10 @@ public class NewsDeleteService {
         newsRepository.save(news);
     }
 
-
+    private String extractPublicIdFromUrl(String url) {
+        String[] parts = url.split("/");
+        String publicIdWithExtension = parts[parts.length - 1];
+        return publicIdWithExtension.split("\\.")[0];
+    }
 
 }
