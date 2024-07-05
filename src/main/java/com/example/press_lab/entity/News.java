@@ -36,21 +36,10 @@ public class News implements Serializable {
     private Long viewCount;
     private Long fkCategoryId;
     private Long fkSubCategoryId;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String content;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String contentRu;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String contentEn;
-
-    @Lob
-    private byte[] image;
+    private String  imageUrl;
 
     @Enumerated(EnumType.STRING)
     private NewsStatus status;

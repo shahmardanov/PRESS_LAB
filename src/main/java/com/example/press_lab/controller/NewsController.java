@@ -40,17 +40,17 @@ public class NewsController {
 
     @PostMapping("/create")
     public ResponseEntity<NewsCreateResponse> createNews(@RequestParam("title") String title,
-                                                         @RequestParam("titleRu") String titleRu,
-                                                         @RequestParam("titleEn") String titleEn,
-                                                         @RequestParam("description") String description,
-                                                         @RequestParam("descriptionRu") String descriptionRu,
-                                                         @RequestParam("descriptionEn") String descriptionEn,
-                                                         @RequestParam("content") String content,
-                                                         @RequestParam("contentRu") String contentRu,
-                                                         @RequestParam("contentEn") String contentEn,
-                                                         @RequestParam("image") MultipartFile image,
-                                                         @RequestParam("fkCategoryId") Long fkCategoryId,
-                                                         @RequestParam("fkSubCategoryId") Long fkSubCategoryId) throws IOException {
+                                             @RequestParam("titleRu") String titleRu,
+                                             @RequestParam("titleEn") String titleEn,
+                                             @RequestParam("description") String description,
+                                             @RequestParam("descriptionRu") String descriptionRu,
+                                             @RequestParam("descriptionEn") String descriptionEn,
+                                             @RequestParam("content") String content,
+                                             @RequestParam("contentRu") String contentRu,
+                                             @RequestParam("contentEn") String contentEn,
+                                             @RequestParam("image") MultipartFile image,
+                                             @RequestParam("fkCategoryId") Long fkCategoryId,
+                                             @RequestParam("fkSubCategoryId") Long fkSubCategoryId) {
 
         NewsCreateRequest newsCreateRequest = new NewsCreateRequest();
         newsCreateRequest.setTitle(title);
@@ -65,8 +65,8 @@ public class NewsController {
         newsCreateRequest.setImage(image);
         newsCreateRequest.setFkCategoryId(fkCategoryId);
         newsCreateRequest.setFkSubCategoryId(fkSubCategoryId);
-
         return ResponseEntity.status(CREATED).body(createService.create(newsCreateRequest));
+
     }
 
     @GetMapping("/{news-id}")
@@ -96,7 +96,7 @@ public class NewsController {
 
     @PostMapping("/by-status")
     public ResponseEntity<List<NewsCardResponse>> getStatus(@RequestHeader(name = "Accept-Language", required = false) Locale locale, @Valid @RequestBody NewsReadByStatusRequest statusRequest) {
-        return ResponseEntity.ok(readService.getNewsByStatus(statusRequest,locale));
+        return ResponseEntity.ok(readService.getNewsByStatus(statusRequest, locale));
     }
 
     @PostMapping("/by-category")

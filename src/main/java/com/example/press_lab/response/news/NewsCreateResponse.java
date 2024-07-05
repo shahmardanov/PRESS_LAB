@@ -19,10 +19,11 @@ public class NewsCreateResponse {
     private String content;
     private String contentRu;
     private String contentEn;
-    private Long viewCount;
     private String description;
     private String descriptionRu;
     private String descriptionEn;
+    private Long viewCount;
+    private String imageUrl;
     private NewsStatus status;
     private Long fkCategoryId;
     private Long fkSubCategoryId;
