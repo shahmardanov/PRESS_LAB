@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,7 +50,7 @@ public class NewsController {
                                              @RequestParam("contentEn") String contentEn,
                                              @RequestParam("image") MultipartFile image,
                                              @RequestParam("fkCategoryId") Long fkCategoryId,
-                                             @RequestParam("fkSubCategoryId") Long fkSubCategoryId) {
+                                             @RequestParam("fkSubCategoryId") Long fkSubCategoryId) throws IOException {
 
         NewsCreateRequest newsCreateRequest = new NewsCreateRequest();
         newsCreateRequest.setTitle(title);
