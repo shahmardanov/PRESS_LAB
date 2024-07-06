@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,15 +28,14 @@ public class NewsCreateService {
 
     private final NewsMapper newsMapper;
 
-    @SneakyThrows
     @Transactional
-    public NewsCreateResponse create(NewsCreateRequest createRequest) {
+    public NewsCreateResponse create(NewsCreateRequest createRequest) throws IOException {
         String imageUrl = cloudinaryService.uploadImage(createRequest.getImage());
         News news = newsMapper.mapRequestToEntity(createRequest);
         news.setImageUrl(imageUrl);
         News save = newsRepository.save(news);
         log.info("news created: {}", save);
-        notifySubscription.notifySubscribers(save);
+//        notifySubscription.notifySubscribers(save);
         return newsMapper.mapCreateToResponse(save);
     }
 
