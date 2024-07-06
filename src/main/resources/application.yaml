@@ -28,14 +28,6 @@ spring:
           starttls:
             enable: true
 
-
-#spring:
-#  application:
-#      name: Press-lab
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/presslab
-#    username: root
-#    password: 1234
   jpa:
     open-in-view: false
     hibernate:
