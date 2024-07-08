@@ -3,6 +3,9 @@ package com.example.press_lab.controller;
 import com.example.press_lab.request.news.*;
 import com.example.press_lab.response.news.*;
 import com.example.press_lab.service.news.*;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -41,16 +44,35 @@ public class NewsController {
         return ResponseEntity.status(CREATED).body(createService.create(createRequest));
     }
 
+
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("/{news-id}")
-    public ResponseEntity<NewsReadResponse> getNewsById(@PathVariable(name = "news-id") Long newsId, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+    public ResponseEntity<NewsReadResponse> getNewsById(@PathVariable(name = "news-id") Long newsId, @Parameter(required = true) @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(newsReadService.getNewsById(newsId, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("/read-all")
     public ResponseEntity<List<NewsReadResponse>> getAll(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(readService.getAllNews(locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("most-viewed")
     public ResponseEntity<List<NewsCardResponse>> getMostViewed(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(readService.getMostViewed(newsReadByPage, locale));
@@ -66,6 +88,12 @@ public class NewsController {
         return ResponseEntity.ok(readService.getNewsByContent(readRequest));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @PostMapping("/by-status")
     public ResponseEntity<List<NewsCardResponse>> getStatus(@RequestHeader(name = "Accept-Language", required = false) Locale locale, @Valid @RequestBody NewsReadByStatusRequest statusRequest) {
         return ResponseEntity.ok(readService.getNewsByStatus(statusRequest, locale));
@@ -76,21 +104,45 @@ public class NewsController {
         return ResponseEntity.ok(readService.getNewsByCategory(categoryRequest, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @PostMapping("/by-subCategory")
     public ResponseEntity<List<NewsCardResponse>> getBySubCategory(@Valid @RequestBody NewsReadBySubCategoryRequest subCategoryRequest, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(readService.getNewsBySubCategory(subCategoryRequest, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @PostMapping("/by-category-subCategory")
     public ResponseEntity<List<NewsCardResponse>> getByCategoryAndSubCategory(@Valid @RequestBody NewsReadByCategoryAndSubCategoryRequest categoryAndSubCategoryRequest, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(readService.getNewsByCategoryAndSubCategory(categoryAndSubCategoryRequest, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @PostMapping("/read-recent")
     public ResponseEntity<List<NewsCardResponse>> getRecentNews(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(recentService.getRecentNews(newsReadByPage, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @PostMapping("/read-recent-last24hours")
     public ResponseEntity<List<NewsCardResponse>> getRecentNewsLast24Hours(@Valid @RequestBody NewsReadByPage newsReadByPage, @RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(recentService.getRecentNewsLast24Hours(newsReadByPage, locale));
