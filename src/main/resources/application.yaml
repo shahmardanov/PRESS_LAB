@@ -6,14 +6,9 @@ spring:
     name: Press-lab
 
   datasource:
-#    url: jdbc:postgresql://dpg-cprefplumphs73c448dg-a:5432/presslab
-#    username: presslab_user
-#    password: c8KBCw2vAy2d24YncSW3F9ojBb4UXxQV
-#    driver-class-name: org.postgresql.Driver
-
-    url: jdbc:postgresql://localhost:5432/presslab?createDatabaseIfNotExist=true
-    username: postgres
-    password: root
+    url: jdbc:postgresql://dpg-cprefplumphs73c448dg-a:5432/presslab
+    username: presslab_user
+    password: c8KBCw2vAy2d24YncSW3F9ojBb4UXxQV
     driver-class-name: org.postgresql.Driver
 
   mail:
