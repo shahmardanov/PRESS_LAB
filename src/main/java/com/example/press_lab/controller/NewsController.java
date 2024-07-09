@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -39,11 +38,10 @@ public class NewsController {
 
     private final NewsViewCountIncrementService incrementViewCount;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = "multipart/form-data")
     public ResponseEntity<NewsCreateResponse> createNews(@Valid @ModelAttribute NewsCreateRequest createRequest) throws IOException {
         return ResponseEntity.status(CREATED).body(createService.create(createRequest));
     }
-
 
     @Parameter(
             name = "Accept-Language",
