@@ -1,6 +1,5 @@
 package com.example.press_lab.request.news;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
