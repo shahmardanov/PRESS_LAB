@@ -6,6 +6,9 @@ import com.example.press_lab.service.subCategory.SubCategoryCreateService;
 import com.example.press_lab.service.subCategory.SubCategoryDeleteService;
 import com.example.press_lab.service.subCategory.SubCategoryReadAllService;
 import com.example.press_lab.service.subCategory.SubCategoryUpdateService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +38,23 @@ public class SubCategoryController {
         return ResponseEntity.status(CREATED).body(categoryCreateService.createCategory(subCategoryRequest));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("category/{fk-category-id}")
     public ResponseEntity<List<SubCategoryResponse>> getAllSubCategoryByCategoryId(@RequestHeader(name = "Accept-Language", required = false) Locale locale, @PathVariable(name = "fk-category-id") Long fkCategoryId) {
         return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategoryByCategoryId(fkCategoryId, locale));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("all")
     public ResponseEntity<List<SubCategoryResponse>> getAllSubCategory(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(subCategoryReadAllService.getAllSubCategory(locale));

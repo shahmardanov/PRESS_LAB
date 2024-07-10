@@ -6,6 +6,9 @@ import com.example.press_lab.service.category.CategoryCreateService;
 import com.example.press_lab.service.category.CategoryDeleteService;
 import com.example.press_lab.service.category.CategoryReadAllService;
 import com.example.press_lab.service.category.CategoryUpdateService;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +37,12 @@ public class CategoryController {
         return ResponseEntity.status(CREATED).body(categoryCreateService.createCategory(categoryRequest));
     }
 
+    @Parameter(
+            name = "Accept-Language",
+            required = true,
+            in = ParameterIn.HEADER,
+            schema = @Schema(implementation = String.class),
+            example = "AZ")
     @GetMapping("/all")
     public ResponseEntity<List<CategoryResponse>> getAllCategory(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
         return ResponseEntity.ok(categoryReadAllService.getAllCategory(locale));
